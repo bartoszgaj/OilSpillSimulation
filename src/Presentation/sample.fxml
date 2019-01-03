@@ -5,17 +5,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<GridPane fx:id="wrapper" fx:controller="Simulation.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane fx:controller="Simulation.Controller"
+            xmlns:fx="http://javafx.com/fxml" fx:id="wrapper">
 
-    <HBox>
-        <GridPane fx:id="map"></GridPane>
-        <VBox>
-            <Button></Button>
 
-            <Button></Button>
-            <Button></Button>
-        </VBox>
-    </HBox>
+    <GridPane fx:id="map" alignment="TOP_LEFT"></GridPane>
 
-</GridPane>
+    <VBox alignment="TOP_RIGHT" minWidth="100" prefHeight="100">
+        <Button>XD</Button>
+        <Button>XD</Button>
+        <Button>XD</Button>
+    </VBox>
+
+
+</BorderPane>
