@@ -13,4 +13,16 @@ public class Area {
             }
         }
     }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Cell[][] getAreaGrid() {
+        return areaGrid;
+    }
+
+    public Cell getCell(int x,int y) {
+        return areaGrid[x][y];
+    }
 }

@@ -16,18 +16,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
         Parent root = (Parent) loader.load();
-
         Controller controller = loader.getController();
-
-
-
-
-
-
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 400, 375));
 
-        controller.createGrid(100);
+
+        Area area = new Area(100);
+        controller.printGrid(area);
         primaryStage.show();
     }
 

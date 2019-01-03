@@ -9,14 +9,19 @@
 <BorderPane fx:controller="Simulation.Controller"
             xmlns:fx="http://javafx.com/fxml" fx:id="wrapper">
 
+    <left>
+        <GridPane fx:id="map" alignment="TOP_LEFT"></GridPane>
 
-    <GridPane fx:id="map" alignment="TOP_LEFT"></GridPane>
+    </left>
 
-    <VBox alignment="TOP_RIGHT" minWidth="100" prefHeight="100">
-        <Button>XD</Button>
-        <Button>XD</Button>
-        <Button>XD</Button>
-    </VBox>
+    <right>
+        <VBox>
+            <Button>XD</Button>
+            <Button>XD</Button>
+            <Button>XD</Button>
+        </VBox>
+
+    </right>
 
 
 </BorderPane>

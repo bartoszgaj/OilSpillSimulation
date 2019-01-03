@@ -12,11 +12,11 @@ public class Controller {
 
 
 
-    public void createGrid (int size){
+    public void printGrid (Area area){
 
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                map.add(new Tile(),i,j);
+        for (int i = 0; i < area.getSize(); i++) {
+            for (int j = 0; j < area.getSize(); j++) {
+                map.add(new Tile(area.getCell(i,j).getOilLevel()),i,j);
             }
         }
     }
