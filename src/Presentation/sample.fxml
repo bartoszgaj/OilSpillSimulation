@@ -3,6 +3,19 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<GridPane fx:controller="Simulation.Controller"
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<GridPane fx:id="wrapper" fx:controller="Simulation.Controller"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+
+    <HBox>
+        <GridPane fx:id="map"></GridPane>
+        <VBox>
+            <Button></Button>
+
+            <Button></Button>
+            <Button></Button>
+        </VBox>
+    </HBox>
+
 </GridPane>
