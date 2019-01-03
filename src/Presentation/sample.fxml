@@ -7,10 +7,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane fx:controller="Simulation.Controller"
-            xmlns:fx="http://javafx.com/fxml" fx:id="wrapper">
+            xmlns:fx="http://javafx.com/fxml" fx:id="wrapper"
+            >
 
     <left>
-        <GridPane fx:id="map" alignment="TOP_LEFT"></GridPane>
+        <GridPane fx:id="map"></GridPane>
 
     </left>
 
