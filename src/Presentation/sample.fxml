@@ -6,20 +6,40 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
 <BorderPane fx:controller="Simulation.Controller"
             xmlns:fx="http://javafx.com/fxml" fx:id="wrapper"
             >
 
     <left>
-        <GridPane fx:id="map"></GridPane>
+
+
+        <GridPane fx:id="map">
+            <!--Ustawienia paddingu-->
+            <BorderPane.margin>
+                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+            </BorderPane.margin>
+        </GridPane>
 
     </left>
 
     <right>
-        <VBox>
-            <Button>XD</Button>
-            <Button>XD</Button>
-            <Button>XD</Button>
+        <VBox >
+            <BorderPane.margin>
+                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+            </BorderPane.margin>
+
+            <Text>Ustawienia Wiatru</Text>
+            <TextField>Wiatr X</TextField>
+            <TextField>Wiatr Y</TextField>
+
+
+            <Text>Ustawienia Symulacji</Text>
+            <TextField>Liczba kroków czasowych</TextField>
+
+
+            <Button>START</Button>
         </VBox>
 
     </right>

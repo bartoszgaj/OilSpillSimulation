@@ -17,8 +17,8 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
         Parent root = (Parent) loader.load();
         Controller controller = loader.getController();
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 400, 375));
+        primaryStage.setTitle("Oil Spill Simulation");
+        primaryStage.setScene(new Scene(root, 600, 375));
 
 
         Area area = new Area(100);
