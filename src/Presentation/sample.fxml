@@ -27,12 +27,13 @@
     <right>
         <VBox >
             <BorderPane.margin>
-                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
             </BorderPane.margin>
 
             <Text>Ustawienia Wiatru</Text>
             <TextField fx:id="windx">Wiatr X</TextField>
             <TextField fx:id="windy">Wiatr Y</TextField>
+            <TextField fx:id="speed">Prędkość</TextField>
 
 
             <Text>Ustawienia Symulacji</Text>
