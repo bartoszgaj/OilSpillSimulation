@@ -22,7 +22,7 @@ public class Area {
     public Area(int size) {
         this.size = size;
         areaGrid = new Cell[this.size][this.size];
-        setCellWithWater();
+        this.generateArea();
         this.generateDefaultParamsAs0();
         this.generateWindDireciontsPower();
     }
@@ -30,14 +30,6 @@ public class Area {
     public void generateRandomSimulation() {
         generateRandomSpillSource();
         generateRandomWCurrent();
-    }
-
-    public void setCellWithWater() {
-        for (int x = 0; x < this.size; x++) {
-            for (int y = 0; y < this.size; y++) {
-                areaGrid[x][y] = new Cell(x, y, Type.WATER);
-            }
-        }
     }
 
     /**
@@ -73,7 +65,6 @@ public class Area {
 
 
     public void generateArea() {
-
         for (int x = 0; x < this.size; x++) {
             for (int y = 0; y < this.size; y++) {
                 areaGrid[x][y] = new Cell(x, y, Type.WATER);
