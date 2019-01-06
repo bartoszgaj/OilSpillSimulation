@@ -131,6 +131,15 @@ public class Cell {
     }
 
     /**
+     * Checks whether a cell is a part of a coast
+     * @param area
+     */
+    public void checkCoast (Area area) {
+        if (this.type == Type.LAND && this.getNumberOfNeighbours8Directions(area, Type.WATER) > 0)
+            this.type = Type.COAST;
+    }
+
+    /**
      * Checks how many cells in N, E, S, W directions hass the same type as given
      * @param area
      * @param cellType - type of a cell we want to find neighbours for
