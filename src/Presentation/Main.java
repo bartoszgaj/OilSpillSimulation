@@ -45,7 +45,7 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("POJEDYŃCZY TIMESTAMP ROZCHODZENIA");
-                area.generateRandomSpillSource();
+                area.checkOilForCircle();
                 controller.printGrid(area);
                 primaryStage.show();
             }
