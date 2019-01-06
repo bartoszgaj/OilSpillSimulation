@@ -32,7 +32,7 @@ public class Main extends Application {
 
                 System.out.println("SYMULACJA ZOSTAŁA WYSTARTOWANA");
 
-                area.setCellWithWater();
+                area.generateArea();
                 area.generateDefaultParamsAs0();
                 area.generateRandomSpillSource();
                 controller.printGrid(area);
