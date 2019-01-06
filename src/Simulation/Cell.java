@@ -14,7 +14,7 @@ public class Cell {
     private double nextOilLevel;
 
     private Direction wCurrentDirection = Direction.N;
-    private double wCurrentPower = 0;
+    private double wCurrentPower = 7;
     private double[] wCurrentDirectionsPowers = new double[8];
 
     public void setOilLevel(double oilLevel) {

@@ -12,7 +12,7 @@ public class Tile extends StackPane {
     public Tile(double oilLevel) {
         Rectangle border = new Rectangle(TILE_SIZE, TILE_SIZE);
 
-        border.setFill(Color.grayRgb((int) Math.round(oilLevel)));
+        border.setFill(Color.grayRgb((int)oilLevel));
 
 
 
