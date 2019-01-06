@@ -9,9 +9,10 @@ public class Area {
         areaGrid = new Cell[size][size];
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                areaGrid[x][y] = new Cell(x,y);
+                areaGrid[x][y] = new Cell(x,y,255);
             }
         }
+
     }
 
     public int getSize() {
