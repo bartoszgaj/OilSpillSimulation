@@ -41,6 +41,8 @@
 
 
             <Button fx:id="start">START</Button>
+            <Button fx:id="iterate">ITERATE</Button>
+
         </VBox>
 
     </right>

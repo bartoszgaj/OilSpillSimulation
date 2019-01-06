@@ -14,6 +14,8 @@ public class Controller {
     private GridPane map;
     @FXML
     private Button start;
+    @FXML
+    private Button iterate;
 
     @FXML
     private TextField windx;
@@ -27,6 +29,9 @@ public class Controller {
         return start;
     }
 
+    public Button getIterate() {
+        return iterate;
+    }
 
     public Integer getWindX(){
         return Integer.valueOf(windx.getText());
