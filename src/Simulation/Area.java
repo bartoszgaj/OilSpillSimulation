@@ -39,7 +39,7 @@ public class Area {
         this.sourceX = -1;
         this.sourceY = -1;
         this.windDirection = Direction.NE;
-        this.windPower = 100;
+        this.windPower = 0.4;
         this.temperature = 20.0;
         this.overallSourceLevel = 255;
         this.iteration = 0;
@@ -101,7 +101,7 @@ public class Area {
         areaGrid[x][y].setType(Type.SOURCE);
         this.sourceX = x;
         this.sourceY = y;
-        areaGrid[x][y].setOilLevel(255.0);
+        areaGrid[x][y].setOilLevel(100.0);
     }
 
     public void checkAndGenerateSpillSource(int x, int y) {
@@ -155,7 +155,7 @@ public class Area {
     }
 
 
-    public void updateOilLevelForCircle() {
+    public void upgradeOilExpansion() {
 //        int minX = this.sourceX - this.iteration > 0 ? this.sourceX - this.iteration : 1;
 //        int maxX = this.sourceX + this.iteration < this.size ? this.sourceX + this.iteration : this.size - 1;
 //        int minY = this.sourceY - this.iteration > 0 ? sourceY - this.iteration : 1;
@@ -195,7 +195,14 @@ public class Area {
             }
         }
 
-        this.updateOilLevelForCircle();
+//        displayAreaInfo();
+        for (Cell[] area : areaGrid) {
+            for (Cell cell : area) {
+                if (cell.getOilLevel() != 0)
+                    System.out.println(cell.getOilLevel());
+            }
+        }
+        this.upgradeOilExpansion();
     }
 
 
@@ -233,5 +240,27 @@ public class Area {
 
     public double getWindPowerAtDirection(Direction windDirection) {
         return this.windDirectionsPower[windDirection.ordinal()];
+    }
+
+
+
+    /**
+     * Wyświetla różne informacje o obszarze w konsoli
+     */
+    public void displayAreaInfo () {
+        System.out.println("Wind power & direction: " + this.windPower + "" + this.windDirection.toString());
+        System.out.print("Wind power at directions: ");
+        for (int i = 0; i < 8; i++) System.out.print(windDirectionsPower[i] + " ");
+        System.out.println();
+        System.out.println("Source X Y level: " + sourceX + " " + sourceY + " " + getCell(sourceX,sourceY).getOilLevel());
+        System.out.println("Source Overall: " + overallSourceLevel);
+//        System.out.println("Source Current: " + getCell(sourceX,sourceY).getCurrentPower() + getCell(sourceX,sourceY).getCurrentDir().toString());
+        System.out.print("Source power at directions: ");
+        for (int i = 0; i < 8; i++) System.out.print(getCell(sourceX,sourceY).getCurrentPowerAtDirection(Direction.values()[i]) + " ");
+        System.out.println();
+//        System.out.println("Cell 150 250 level: " + getCell(150,250).getOilLevel());
+//        System.out.println("Cell 351 250 level: " + getCell(351,250).getOilLevel());
+//        System.out.println("Cell 250 150 level: " + getCell(250,150).getOilLevel());
+//        System.out.println("Cell 250 351 level: " + getCell(250,351).getOilLevel());
     }
 }

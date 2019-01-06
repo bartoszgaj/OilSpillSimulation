@@ -51,7 +51,7 @@ public class Controller {
 
         for (int i = 0; i < area.getSize(); i++) {
             for (int j = 0; j < area.getSize(); j++) {
-                map.add(new Tile(area.getCell(i,j).getOilLevel()),i,j);
+                map.add(new Tile(area.getCell(i,j).getOilLevel(), area.getCell(i,j).getType()),i,j);
             }
         }
     }
