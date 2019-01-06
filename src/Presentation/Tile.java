@@ -7,10 +7,8 @@ import javafx.scene.shape.Rectangle;
 
 
 public class Tile extends StackPane {
-    private static final int TILE_SIZE = 3;
 
-    private int oilLevel;
-    private Type type;
+    private static final int TILE_SIZE = 3;
 
     private Color coast = Color.web("rgb(86%, 54%, 4%)"); // orange
     private Color land = Color.web("rgb(0%, 100%, 0%)");
@@ -24,40 +22,38 @@ public class Tile extends StackPane {
 
 
     public Tile(double oilLevel, Type type) {
-        this.oilLevel = (int) oilLevel;
-        this.type = type;
 
-        Rectangle border = new Rectangle(TILE_SIZE, TILE_SIZE);
+        Rectangle square = new Rectangle(TILE_SIZE, TILE_SIZE);
 
-        switch (this.type) {
+        switch (type) {
             case COAST:
-                border.setFill(this.coast);
+                square.setFill(this.coast);
                 break;
             case LAND:
-                border.setFill(this.land);
+                square.setFill(this.land);
                 break;
             case OIL:
-                border.setFill(this.oilColor);
+                square.setFill(this.oilColor);
                 if (oilLevel < 1.0E-14) {
-                    border.setFill(this.water);
+                    square.setFill(this.water);
                 } else if (oilLevel < 1.0E-11) {
-                    border.setFill(this.oilColor4);
+                    square.setFill(this.oilColor4);
                 } else if (oilLevel < 1.0E-8) {
-                    border.setFill(this.oilColor4);
+                    square.setFill(this.oilColor3);
                 } else if (oilLevel < 1.0E-5) {
-                    border.setFill(this.oilColor2);
+                    square.setFill(this.oilColor2);
                 } else if (oilLevel < 1.0E-2) {
-                    border.setFill(this.oilColor1);
+                    square.setFill(this.oilColor1);
                 }
                 break;
             case SOURCE:
-                border.setFill(source);
+                square.setFill(source);
                 break;
             case WATER:
-                border.setFill(this.water);
+                square.setFill(this.water);
                 break;
         }
 
-        getChildren().add(border);
+        getChildren().add(square);
     }
 }
