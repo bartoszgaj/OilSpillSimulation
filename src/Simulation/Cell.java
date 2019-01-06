@@ -17,6 +17,9 @@ public class Cell {
     private double wCurrentPower = 0;
     private double[] wCurrentDirectionsPowers = new double[8];
 
+    public void setOilLevel(double oilLevel) {
+        this.oilLevel = oilLevel;
+    }
 
     public double getOilLevel() {
         return oilLevel;
