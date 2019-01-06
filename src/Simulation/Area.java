@@ -38,9 +38,10 @@ public class Area {
     public void generateDefaultParamsAs0() {
         this.sourceX = -1;
         this.sourceY = -1;
-        this.windDirection = Direction.N;
+        this.windDirection = Direction.NE;
+        this.windPower = 100;
         this.temperature = 20.0;
-        this.overallSourceLevel = 1000;
+        this.overallSourceLevel = 255;
         this.iteration = 0;
         this.windDirectionsPower = new double[8];
 //        generateCoast();
@@ -155,14 +156,20 @@ public class Area {
 
 
     public void updateOilLevelForCircle() {
-        int minX = this.sourceX - this.iteration > 0 ? this.sourceX - this.iteration : 1;
-        int maxX = this.sourceX + this.iteration < this.size ? this.sourceX + this.iteration : this.size - 1;
-        int minY = this.sourceY - this.iteration > 0 ? sourceY - this.iteration : 1;
-        int maxY = this.sourceY + this.iteration < this.size ? this.sourceY + this.iteration : this.size - 1;
+//        int minX = this.sourceX - this.iteration > 0 ? this.sourceX - this.iteration : 1;
+//        int maxX = this.sourceX + this.iteration < this.size ? this.sourceX + this.iteration : this.size - 1;
+//        int minY = this.sourceY - this.iteration > 0 ? sourceY - this.iteration : 1;
+//        int maxY = this.sourceY + this.iteration < this.size ? this.sourceY + this.iteration : this.size - 1;
+//
+//        for (int x = minX; x < maxX; x++)
+//            for (int y = minY; y < maxY; y++)
+//                areaGrid[x][y].updateOilLevel();
 
-        for (int x = minX; x < maxX; x++)
-            for (int y = minY; y < maxY; y++)
+        for(int x=1; x < this.getSize()-1; x++){
+            for(int y=1; y < this.getSize()-1; y++){
                 areaGrid[x][y].updateOilLevel();
+            }
+        }
 
         updateSource();
     }
@@ -171,16 +178,22 @@ public class Area {
      * Przelicza poziom oleju w każdej komórce
      */
     public void checkOilForCircle() {
-        this.iteration++;
+//        this.iteration++;
+//
+//        int minX = this.sourceX - this.iteration > 0 ? this.sourceX - this.iteration : 1;
+//        int maxX = this.sourceX + this.iteration < this.size ? this.sourceX + this.iteration : this.size - 1;
+//        int minY = this.sourceY - this.iteration > 0 ? sourceY - this.iteration : 1;
+//        int maxY = this.sourceY + this.iteration < this.size ? this.sourceY + this.iteration : this.size - 1;
 
-        int minX = this.sourceX - this.iteration > 0 ? this.sourceX - this.iteration : 1;
-        int maxX = this.sourceX + this.iteration < this.size ? this.sourceX + this.iteration : this.size - 1;
-        int minY = this.sourceY - this.iteration > 0 ? sourceY - this.iteration : 1;
-        int maxY = this.sourceY + this.iteration < this.size ? this.sourceY + this.iteration : this.size - 1;
+//        for (int x = minX; x < maxX; x++)
+//            for (int y = minY; y < maxY; y++)
+//                areaGrid[x][y].generateNewOilLevel(this);
 
-        for (int x = minX; x < maxX; x++)
-            for (int y = minY; y < maxY; y++)
+        for(int x=1; x < this.getSize() - 1; x++){
+            for(int y=1; y < this.getSize() - 1; y++){
                 areaGrid[x][y].generateNewOilLevel(this);
+            }
+        }
 
         this.updateOilLevelForCircle();
     }
