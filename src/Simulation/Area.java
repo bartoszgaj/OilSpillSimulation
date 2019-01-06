@@ -195,13 +195,6 @@ public class Area {
             }
         }
 
-//        displayAreaInfo();
-        for (Cell[] area : areaGrid) {
-            for (Cell cell : area) {
-                if (cell.getOilLevel() != 0)
-                    System.out.println(cell.getOilLevel());
-            }
-        }
         this.upgradeOilExpansion();
     }
 

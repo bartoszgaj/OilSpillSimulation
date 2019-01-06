@@ -15,10 +15,12 @@ public class Tile extends StackPane {
     private int oilLevel;
     private Type  type;
 
-    private Color oilColor = Color.BLACK;
-    private Color oilColor1 = Color.web("rgb(10%, 10%, 10%)");
-    private Color oilColor2 = Color.web("rgb(20%, 20%, 20%)");
-    private Color oilColor3 = Color.web("rgb(30%, 30%, 30%)");
+    private Color oilColor = Color.web("rgb(0%, 0%, 0%)"); //black
+    private Color oilColor1 = Color.web("rgb(0%, 0%, 10%)"); // black -> blue
+    private Color oilColor2 = Color.web("rgb(0%, 0%, 30%)");
+    private Color oilColor3 = Color.web("rgb(0%, 0%, 50%)");
+    private Color oilColor4 = Color.web("rgb(0%, 0%, 70%)");
+    private Color water = Color.web("rgb(0%, 0%, 100%)"); // blue
 
 
     public Tile(double oilLevel, Type type) {
@@ -27,21 +29,19 @@ public class Tile extends StackPane {
 
         Rectangle border = new Rectangle(TILE_SIZE, TILE_SIZE);
 
-
         switch (this.type) {
             case WATER:
-                border.setFill(Color.BLUE);
+                border.setFill(this.water);
                 break;
             case OIL:
-                border.setFill(oilColor);
-                if (oilLevel < 1.0E-15) border.setFill(oilColor3);
-                else if (oilLevel < 1.0E-8) border.setFill(oilColor2);
-                else if (oilLevel < 1.0E-4) border.setFill(oilColor1);
+                border.setFill(this.oilColor);
+                if (oilLevel < 1.0E-15) border.setFill(this.water);
+                else if (oilLevel < 1.0E-12) border.setFill(this.oilColor4);
+                else if (oilLevel < 1.0E-9) border.setFill(this.oilColor3);
+                else if (oilLevel < 1.0E-6) border.setFill(this.oilColor2);
+                else if (oilLevel < 1.0E-3) border.setFill(this.oilColor1);
                 break;
         }
-//        border.setFill(Color.grayRgb());
-
-
 
         getChildren().add(border);
     }
