@@ -9,10 +9,10 @@ import javafx.scene.shape.Rectangle;
 public class Tile extends StackPane {
     private static final int TILE_SIZE = 3;
 
-    public Tile(int oilLevel) {
+    public Tile(double oilLevel) {
         Rectangle border = new Rectangle(TILE_SIZE, TILE_SIZE);
 
-        border.setFill(Color.grayRgb(oilLevel));
+        border.setFill(Color.grayRgb((int) Math.round(oilLevel)));
 
 
 
