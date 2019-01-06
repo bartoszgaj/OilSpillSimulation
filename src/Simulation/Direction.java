@@ -8,5 +8,5 @@ public enum Direction {
     S,
     SW,
     W,
-    NW;
+    NW
 }

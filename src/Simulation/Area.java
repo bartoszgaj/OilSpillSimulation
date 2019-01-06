@@ -24,7 +24,7 @@ public class Area {
         areaGrid = new Cell[this.size][this.size];
         for (int x = 0; x < this.size; x++) {
             for (int y = 0; y < this.size; y++) {
-                areaGrid[x][y] = new Cell(x, y);
+                areaGrid[x][y] = new Cell(x, y, Type.WATER);
             }
         }
         this.generateDefaultParamsAs0();
@@ -129,15 +129,15 @@ public class Area {
     /**
      * Generuje prąd o losowej sile wokół podanego punktu
      *
-     * @param x
+     * @param xWCurrent
      */
-    public void generateWCurrent(int x) {
+    public void generateWCurrent(int xWCurrent) {
         Random generator = new Random();
 
         double randomWCurrentPower = generator.nextDouble();
         Direction currentWDirection = Direction.values()[generator.nextInt(8)];
 
-        for (int x = x - 30; x < x + 30; x++)
+        for (int x = xWCurrent - 30; x < xWCurrent + 30; x++)
             for (int y = 0; y < this.size; y++)
                 areaGrid[x][y].setWCurrent(randomWCurrentPower, currentWDirection);
     }
@@ -185,7 +185,7 @@ public class Area {
 
         for (int x = minX; x < maxX; x++)
             for (int y = minY; y < maxY; y++)
-                areaGrid[x][y].checkOil(this);
+                areaGrid[x][y].generateNewOilLevel(this);
 
         this.updateOilLevelForCircle();
     }
