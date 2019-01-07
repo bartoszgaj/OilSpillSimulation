@@ -22,37 +22,6 @@ public class Main extends Application {
         Controller controller = loader.getController();
         primaryStage.setTitle("Oil Spill Simulation");
         primaryStage.setScene(new Scene(root, 600, 375));
-
-        Button start = controller.getStartButton();
-        Area area = new Area(100);
-        //TODO move it to controller
-        start.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                System.out.println("SYMULACJA ZOSTAŁA WYSTARTOWANA");
-
-                area.generateArea();
-                area.generateDefaultParamsAs0();
-                area.generateRandomSpillSource();
-                controller.printGrid(area);
-                primaryStage.show();
-            }
-        });
-
-        Button iterate = controller.getIterate();
-        iterate.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("POJEDYŃCZY TIMESTAMP ROZCHODZENIA");
-                area.checkOilForCircle();
-                controller.printGrid(area);
-                primaryStage.show();
-            }
-        });
-
-//        Area area = new Area(100);
-        controller.printGrid(area);
         primaryStage.show();
     }
 

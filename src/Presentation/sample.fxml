@@ -40,8 +40,8 @@
             <TextField fx:id="timestamp">Liczba kroków czasowych</TextField>
 
 
-            <Button fx:id="start">START</Button>
-            <Button fx:id="iterate">ITERATE</Button>
+            <Button fx:id="start" onAction="#startSimulation">START</Button>
+            <Button fx:id="iterate" onAction="#iterateSimulation">ITERATE</Button>
 
         </VBox>
 

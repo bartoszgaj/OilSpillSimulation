@@ -1,12 +1,15 @@
 package Simulation;
 
 import Presentation.Tile;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public class Controller {
+
+    Area area;
 
     @FXML
     private GridPane map;
@@ -21,15 +24,31 @@ public class Controller {
     private TextField windy;
     @FXML
     private TextField timestamp;
-    // BUTTON
 
-    public Button getStartButton() {
-        return start;
+    public void initialize() {
+        area = new Area(100);
+        area.generateArea();
+        printGrid(area);
     }
 
-    public Button getIterate() {
-        return iterate;
+    @FXML
+    void startSimulation(ActionEvent event) {
+        area.generateDefaultParamsAs0();
+        area.generateRandomSpillSource();
+        printGrid(area);
+
+        System.out.println("SYMULACJA ZOSTAŁA WYSTARTOWANA");
+
     }
+
+    @FXML
+    void iterateSimulation(ActionEvent event) {
+        System.out.println("POJEDYŃCZY TIMESTAMP ROZCHODZENIA");
+        area.checkOilForCircle();
+        printGrid(area);
+
+    }
+
 
     public Integer getWindX() {
         return Integer.valueOf(windx.getText());
