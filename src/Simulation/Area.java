@@ -5,15 +5,15 @@ import java.util.Random;
 public class Area {
 
     private int size;
-    private double windPower;
-    private Direction windDirection;
-    private double[] windDirectionsPower;
-    private double temperature;
+    private double windPower = 0.4;
+    private Direction windDirection = Direction.N;
+    private double[] windDirectionsPower = new double[8];
+    private double temperature = 20;
     private Cell[][] areaGrid;
-    private int sourceX;
-    private int sourceY;
-    private double overallSourceLevel;
-    private int iteration;
+    private int sourceX = -1;
+    private int sourceY = -1;
+    private double overallSourceLevel = 255;
+    private int iteration = 0;
 
 
     /**
@@ -23,7 +23,6 @@ public class Area {
         this.size = size;
         areaGrid = new Cell[this.size][this.size];
         this.generateArea();
-        this.generateDefaultParamsAs0();
         this.generateWindDireciontsPower();
     }
 
@@ -32,23 +31,10 @@ public class Area {
         generateRandomWCurrent();
     }
 
-    /**
-     * Konstrukcja parametrow o wartosciach symbolu początkowego
-     */
-    public void generateDefaultParamsAs0() {
-        this.sourceX = -1;
-        this.sourceY = -1;
-        this.windDirection = Direction.NE;
-        this.windPower = 0.4;
-        this.temperature = 20.0;
-        this.overallSourceLevel = 255;
-        this.iteration = 0;
-        this.windDirectionsPower = new double[8];
-//        generateCoast();
-    }
 
-    private void setDefaultParams() {
-        this.generateDefaultParamsAs0();
+    public void setSimulationParameters(String windDirection, Double windSpeed, String waterDirection, Double waterSpeed){
+        this.windDirection = Direction.stringToDirection(windDirection);
+        this.windPower=windSpeed;
     }
 
 
@@ -108,7 +94,7 @@ public class Area {
         if (areaGrid[x][y].getType() == Type.WATER) {
             this.generateSpillSource(x, y);
         } else {
-            setDefaultParams();
+//            setDefaultParams(); deprecited function changed to setSiulationparameters
         }
     }
 

@@ -39,7 +39,6 @@ public class Controller {
 
     public void initialize() {
         area = new Area(100);
-        area.generateArea();
         printGrid(area);
 
         waterSpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -66,7 +65,6 @@ public class Controller {
 
     @FXML
     void startSimulation(ActionEvent event) {
-        area.generateDefaultParamsAs0();
         area.generateRandomSpillSource();
         printGrid(area);
         windSpeedSlider.setDisable(true);
@@ -88,7 +86,6 @@ public class Controller {
     @FXML
     void resetSimulation(ActionEvent event) {
         area = new Area(100);
-        area.generateArea();
         printGrid(area);
 
         windSpeedSlider.setDisable(false);
