@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -30,6 +31,10 @@ public class Controller {
     private Text timestampText;
     @FXML
     private Slider timestampSlider;
+    @FXML
+    private ChoiceBox<String> waterDirection;
+    @FXML
+    private ChoiceBox<String> windDirection;
 
 
     public void initialize() {
@@ -64,17 +69,34 @@ public class Controller {
         area.generateDefaultParamsAs0();
         area.generateRandomSpillSource();
         printGrid(area);
+        windSpeedSlider.setDisable(true);
+        waterSpeedSlider.setDisable(true);
+        windDirection.setDisable(true);
+        waterDirection.setDisable(true);
 
         System.out.println("SYMULACJA ZOSTAŁA WYSTARTOWANA");
-
     }
 
     @FXML
     void iterateSimulation(ActionEvent event) {
-        System.out.println("POJEDYŃCZY TIMESTAMP ROZCHODZENIA");
         area.checkOilForCircle();
         printGrid(area);
 
+        System.out.println("USTALONY TIMESTAMP ROZCHODZENIA");
+    }
+
+    @FXML
+    void resetSimulation(ActionEvent event) {
+        area = new Area(100);
+        area.generateArea();
+        printGrid(area);
+
+        windSpeedSlider.setDisable(false);
+        waterSpeedSlider.setDisable(false);
+        windDirection.setDisable(false);
+        waterDirection.setDisable(false);
+
+        System.out.println("SYMULACJA ZOSTAŁA ZRESETOWANA");
     }
 
 

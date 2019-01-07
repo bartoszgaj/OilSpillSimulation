@@ -44,7 +44,7 @@
                     <Label style="-fx-font-size: 14; -fx-font-weight: bold">Wiatr</Label>
 
                     <Text>Kierunek</Text>
-                    <ChoiceBox value="N">
+                    <ChoiceBox fx:id="windDirection" value="N">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="N"/>
@@ -65,7 +65,7 @@
                 <VBox alignment="CENTER">
                     <Label style="-fx-font-size: 14; -fx-font-weight: bold">Prąd</Label>
                     <Text>Kierunek</Text>
-                    <ChoiceBox value="N">
+                    <ChoiceBox fx:id="waterDirection" value="N">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="N"/>
@@ -91,6 +91,8 @@
             <HBox alignment="CENTER">
             <Button fx:id="start" onAction="#startSimulation">START</Button>
             <Button fx:id="iterate" onAction="#iterateSimulation">ITERATE</Button>
+            <Button fx:id="reset" onAction="#resetSimulation">RESET</Button>
+
             </HBox>
         </VBox>
 
