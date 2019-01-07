@@ -65,6 +65,10 @@ public class Controller {
 
     @FXML
     void startSimulation(ActionEvent event) {
+
+
+        area.setSimulationParameters(windDirection.getValue(),windSpeedSlider.getValue(),waterDirection.getValue(),waterSpeedSlider.getValue());
+
         area.generateRandomSpillSource();
         printGrid(area);
         windSpeedSlider.setDisable(true);
@@ -72,15 +76,26 @@ public class Controller {
         windDirection.setDisable(true);
         waterDirection.setDisable(true);
 
+//        area.printSimulationParameters();
+
         System.out.println("SYMULACJA ZOSTAŁA WYSTARTOWANA");
     }
 
     @FXML
     void iterateSimulation(ActionEvent event) {
-        area.checkOilForCircle();
-        printGrid(area);
+        System.out.println(timestampSlider.getValue());
+        Integer numberOfInterations = (int) timestampSlider.getValue();
+        System.out.println(numberOfInterations);
 
-        System.out.println("USTALONY TIMESTAMP ROZCHODZENIA");
+        for (int i = 0; i < numberOfInterations; i++) {
+            area.checkOilForCircle();
+            printGrid(area);
+
+            System.out.println("WYKONANO " + (i+1) + " ITERACJI");
+        }
+
+
+        System.out.println("ZASYMULOWANO " + numberOfInterations + " TIMESTAMPÓW ROZCHODZENIA");
     }
 
     @FXML

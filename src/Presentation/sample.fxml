@@ -80,13 +80,13 @@
                         </items>
                     </ChoiceBox>
                     <Text fx:id="waterSpeedText">Siła = 5.0</Text>
-                    <Slider fx:id="waterSpeedSlider"  value="5" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="0" max="10" showTickLabels="true" showTickMarks="true" />
+                    <Slider fx:id="waterSpeedSlider"  value="5" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="0" max="10" showTickLabels="true" showTickMarks="false" />
                 </VBox>
             </HBox>
 
             <Separator orientation="HORIZONTAL"/>
             <Text fx:id="timestampText">Liczba kroków czasowych = 5</Text>
-            <Slider fx:id="timestampSlider" value="5" majorTickUnit="10" minorTickCount="1" snapToTicks="true" blockIncrement="1" min="0" max="50" showTickLabels="true" showTickMarks="true"/>
+            <Slider fx:id="timestampSlider" value="5" majorTickUnit="10" minorTickCount="9"  snapToTicks="true" blockIncrement="1" min="0" max="50" showTickLabels="true" showTickMarks="true"/>
 
             <HBox alignment="CENTER">
             <Button fx:id="start" onAction="#startSimulation">START</Button>

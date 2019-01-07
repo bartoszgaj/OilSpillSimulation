@@ -37,6 +37,12 @@ public class Area {
         this.windPower=windSpeed;
     }
 
+    public void printSimulationParameters(){
+        System.out.println("PARAMETRY SYMULACJI");
+        System.out.println("Kierunek Wiatru = " + this.windDirection);
+        System.out.println("Predkosc Wiatru = " + this.windPower);
+    }
+
 
     public void generateWindDireciontsPower() {
         int windDirection = this.windDirection.ordinal();
