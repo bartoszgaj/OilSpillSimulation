@@ -8,6 +8,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.text.Font?>
 <BorderPane fx:controller="Simulation.Controller"
             xmlns:fx="http://javafx.com/fxml" fx:id="wrapper"
             >
@@ -25,24 +32,66 @@
     </left>
 
     <right>
-        <VBox >
+        <VBox alignment="TOP_CENTER">
             <BorderPane.margin>
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
             </BorderPane.margin>
 
-            <Text>Ustawienia Wiatru</Text>
-            <TextField fx:id="windx">Wiatr X</TextField>
-            <TextField fx:id="windy">Wiatr Y</TextField>
-            <TextField fx:id="speed">Prędkość</TextField>
+            <Label style="-fx-font-size: 20; -fx-font-weight: bold">USTAWIENIA</Label>
 
+            <HBox>
+                <VBox alignment="CENTER">
+                    <Label style="-fx-font-size: 14; -fx-font-weight: bold">Wiatr</Label>
 
-            <Text>Ustawienia Symulacji</Text>
-            <TextField fx:id="timestamp">Liczba kroków czasowych</TextField>
+                    <Text>Kierunek</Text>
+                    <ChoiceBox value="N">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="N"/>
+                                <String fx:value="NE"/>
+                                <String fx:value="E"/>
+                                <String fx:value="SE"/>
+                                <String fx:value="S"/>
+                                <String fx:value="SW"/>
+                                <String fx:value="W"/>
+                                <String fx:value="NW"/>
+                            </FXCollections>
+                        </items>
+                    </ChoiceBox>
+                    <Text fx:id="windSpeedText">Siła = 5.0</Text>
+                    <Slider fx:id="windSpeedSlider"  value="5" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="0" max="10" showTickLabels="true" showTickMarks="true"/>
+                </VBox>
+                <Separator orientation="VERTICAL"/>
+                <VBox alignment="CENTER">
+                    <Label style="-fx-font-size: 14; -fx-font-weight: bold">Prąd</Label>
+                    <Text>Kierunek</Text>
+                    <ChoiceBox value="N">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="N"/>
+                                <String fx:value="NE"/>
+                                <String fx:value="E"/>
+                                <String fx:value="SE"/>
+                                <String fx:value="S"/>
+                                <String fx:value="SW"/>
+                                <String fx:value="W"/>
+                                <String fx:value="NW"/>
+                            </FXCollections>
+                        </items>
+                    </ChoiceBox>
+                    <Text fx:id="waterSpeedText">Siła = 5.0</Text>
+                    <Slider fx:id="waterSpeedSlider"  value="5" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="0" max="10" showTickLabels="true" showTickMarks="true" />
+                </VBox>
+            </HBox>
 
+            <Separator orientation="HORIZONTAL"/>
+            <Text fx:id="timestampText">Liczba kroków czasowych = 5</Text>
+            <Slider fx:id="timestampSlider" value="5" majorTickUnit="10" minorTickCount="1" snapToTicks="true" blockIncrement="1" min="0" max="50" showTickLabels="true" showTickMarks="true"/>
 
+            <HBox alignment="CENTER">
             <Button fx:id="start" onAction="#startSimulation">START</Button>
             <Button fx:id="iterate" onAction="#iterateSimulation">ITERATE</Button>
-
+            </HBox>
         </VBox>
 
     </right>

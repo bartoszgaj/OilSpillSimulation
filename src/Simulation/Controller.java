@@ -1,11 +1,15 @@
 package Simulation;
 
 import Presentation.Tile;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 public class Controller {
 
@@ -13,22 +17,46 @@ public class Controller {
 
     @FXML
     private GridPane map;
-    @FXML
-    private Button start;
-    @FXML
-    private Button iterate;
 
     @FXML
-    private TextField windx;
+    private Text windSpeedText;
     @FXML
-    private TextField windy;
+    private Text waterSpeedText;
     @FXML
-    private TextField timestamp;
+    private Slider windSpeedSlider;
+    @FXML
+    private Slider waterSpeedSlider;
+    @FXML
+    private Text timestampText;
+    @FXML
+    private Slider timestampSlider;
+
 
     public void initialize() {
         area = new Area(100);
         area.generateArea();
         printGrid(area);
+
+        waterSpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                waterSpeedText.setText("Siła = " + String.format("%.1f", newValue));
+            }
+        });
+
+        windSpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                windSpeedText.setText("Siła = " + String.format("%.1f", newValue));
+            }
+        });
+
+        timestampSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                timestampText.setText("Liczba kroków czasowych = " + String.format("%.0f", newValue));
+            }
+        });
     }
 
     @FXML
@@ -50,17 +78,8 @@ public class Controller {
     }
 
 
-    public Integer getWindX() {
-        return Integer.valueOf(windx.getText());
-    }
 
-    public Integer getWindY() {
-        return Integer.valueOf(windy.getText());
-    }
 
-    public Integer getTimestamp() {
-        return Integer.valueOf(timestamp.getText());
-    }
 
 
     public void printGrid(Area area) {
@@ -71,4 +90,6 @@ public class Controller {
             }
         }
     }
+
+
 }
