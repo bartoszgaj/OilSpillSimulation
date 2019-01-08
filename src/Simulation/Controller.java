@@ -1,6 +1,7 @@
 package Simulation;
 
 import Presentation.Tile;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -35,27 +36,33 @@ public class Controller {
     private ChoiceBox<String> waterDirection;
     @FXML
     private ChoiceBox<String> windDirection;
+    @FXML
+    private Button startButton;
+    @FXML
+    private Button iterateButton;
 
 
     public void initialize() {
-        area = new Area(100);
-        printGrid(area);
+        this.area = new Area(100);
+        printGrid(this.area);
 
-        waterSpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
+        this.iterateButton.setDisable(true);
+
+        this.waterSpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 waterSpeedText.setText("Siła = " + String.format("%.1f", newValue));
             }
         });
 
-        windSpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
+        this.windSpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 windSpeedText.setText("Siła = " + String.format("%.1f", newValue));
             }
         });
 
-        timestampSlider.valueProperty().addListener(new ChangeListener<Number>() {
+        this.timestampSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 timestampText.setText("Liczba kroków czasowych = " + String.format("%.0f", newValue));
@@ -67,14 +74,16 @@ public class Controller {
     void startSimulation(ActionEvent event) {
 
 
-        area.setSimulationParameters(windDirection.getValue(),windSpeedSlider.getValue(),waterDirection.getValue(),waterSpeedSlider.getValue());
+        this.area.setSimulationParameters(this.windDirection.getValue(), this.windSpeedSlider.getValue(), this.waterDirection.getValue(), this.waterSpeedSlider.getValue());
 
-        area.generateRandomSpillSource();
-        printGrid(area);
-        windSpeedSlider.setDisable(true);
-        waterSpeedSlider.setDisable(true);
-        windDirection.setDisable(true);
-        waterDirection.setDisable(true);
+        this.area.generateRandomSpillSource();
+        printGrid(this.area);
+        this.windSpeedSlider.setDisable(true);
+        this.waterSpeedSlider.setDisable(true);
+        this.windDirection.setDisable(true);
+        this.waterDirection.setDisable(true);
+        this.startButton.setDisable(true);
+        this.iterateButton.setDisable(false);
 
 //        area.printSimulationParameters();
 
@@ -83,38 +92,53 @@ public class Controller {
 
     @FXML
     void iterateSimulation(ActionEvent event) {
-        System.out.println(timestampSlider.getValue());
-        Integer numberOfInterations = (int) timestampSlider.getValue();
+        System.out.println(this.timestampSlider.getValue());
+        Integer numberOfInterations = (int) this.timestampSlider.getValue();
         System.out.println(numberOfInterations);
 
-        for (int i = 0; i < numberOfInterations; i++) {
-            area.checkOilForCircle();
-            printGrid(area);
 
-            System.out.println("WYKONANO " + (i+1) + " ITERACJI");
-        }
+        int iteration = 0;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                iterate(numberOfInterations, iteration);
+            }
+        }).start();
 
+        System.out.println("SYMULUJE " + numberOfInterations + " TIMESTAMPÓW ROZCHODZENIA");
+    }
 
-        System.out.println("ZASYMULOWANO " + numberOfInterations + " TIMESTAMPÓW ROZCHODZENIA");
+    public void iterate(Integer numberOfInterations, int iteration) {
+        int ite = iteration + 1;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                area.checkOilForCircle();
+                printGrid(area);
+
+                System.out.println("WYKONANO " + (ite) + " ITERACJI");
+
+                if (numberOfInterations - 1 != 0) {
+                    iterate(numberOfInterations - 1, ite);
+                }
+            }
+        });
     }
 
     @FXML
     void resetSimulation(ActionEvent event) {
-        area = new Area(100);
+        this.area = new Area(100);
         printGrid(area);
 
-        windSpeedSlider.setDisable(false);
-        waterSpeedSlider.setDisable(false);
-        windDirection.setDisable(false);
-        waterDirection.setDisable(false);
+        this.windSpeedSlider.setDisable(false);
+        this.waterSpeedSlider.setDisable(false);
+        this.windDirection.setDisable(false);
+        this.waterDirection.setDisable(false);
+        this.startButton.setDisable(false);
+        this.iterateButton.setDisable(true);
 
         System.out.println("SYMULACJA ZOSTAŁA ZRESETOWANA");
     }
-
-
-
-
-
 
     public void printGrid(Area area) {
 
@@ -124,6 +148,4 @@ public class Controller {
             }
         }
     }
-
-
 }

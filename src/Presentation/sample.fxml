@@ -89,9 +89,9 @@
             <Slider fx:id="timestampSlider" value="5" majorTickUnit="10" minorTickCount="9"  snapToTicks="true" blockIncrement="1" min="0" max="50" showTickLabels="true" showTickMarks="true"/>
 
             <HBox alignment="CENTER">
-            <Button fx:id="start" onAction="#startSimulation">START</Button>
-            <Button fx:id="iterate" onAction="#iterateSimulation">ITERATE</Button>
-            <Button fx:id="reset" onAction="#resetSimulation">RESET</Button>
+            <Button fx:id="startButton" onAction="#startSimulation">START</Button>
+            <Button fx:id="iterateButton" onAction="#iterateSimulation">ITERATE</Button>
+            <Button fx:id="resetButton" onAction="#resetSimulation">RESET</Button>
 
             </HBox>
         </VBox>
