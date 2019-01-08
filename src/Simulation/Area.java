@@ -22,7 +22,8 @@ public class Area {
     public Area(int size) {
         this.size = size;
         areaGrid = new Cell[this.size][this.size];
-        this.generateArea();
+//        this.generateArea();
+        generateRandomArea();
         this.generateWindDireciontsPower();
     }
 
@@ -65,6 +66,36 @@ public class Area {
         }
     }
 
+    public void generateRandomArea () {
+        Random generator = new Random();
+
+        for (int x = 0; x < this.size; x++)
+            for (int y = 0; y < this.size; y++) {
+                areaGrid[x][y] = new Cell(x,y,Type.WATER);
+                if (generator.nextInt(1000) > 512)
+                    areaGrid[x][y].setType(Type.LAND);
+                else
+                    areaGrid[x][y].setType(Type.WATER);
+            }
+
+        for (int i = 0; i < 10; i++) {
+            for (int x = 0; x < this.size; x++)
+                for (int y = 0; y < this.size; y++)
+                    if (areaGrid[x][y].getType() == Type.LAND) {
+                        if (areaGrid[x][y].getNumberOfNeighbours8Directions(this, Type.WATER) >= 4)
+                            areaGrid[x][y].setType(Type.WATER);
+                    }
+                    else if (areaGrid[x][y].getType() == Type.WATER)
+                        if (areaGrid[x][y].getNumberOfNeighbours8Directions(this, Type.LAND) >= 4)
+                             areaGrid[x][y].setType(Type.LAND);
+        }
+
+        generateCoast();
+//        generateCurrent(250);
+        generateRandomWCurrent();
+    }
+
+
     /**
      * Generuje źródło wycieku w losowym miejscu na wodzie
      */
@@ -96,20 +127,13 @@ public class Area {
         areaGrid[x][y].setOilLevel(100.0);
     }
 
-    public void checkAndGenerateSpillSource(int x, int y) {
-        if (areaGrid[x][y].getType() == Type.WATER) {
-            this.generateSpillSource(x, y);
-        } else {
-//            setDefaultParams(); deprecited function changed to setSiulationparameters
-        }
-    }
 
     /**
      * Generuje losowy prąd w losowym miejscu
      */
     public void generateRandomWCurrent() {
         Random generator = new Random();
-        int x = generator.nextInt(this.size - 20);
+        int x = generator.nextInt(this.size - 50);
 
         this.generateWCurrent(x);
     }
@@ -125,7 +149,7 @@ public class Area {
         double randomWCurrentPower = generator.nextDouble();
         Direction currentWDirection = Direction.values()[generator.nextInt(8)];
 
-        for (int x = xWCurrent - 30; x < xWCurrent + 30; x++)
+        for (int x = xWCurrent; x < xWCurrent + 30; x++)
             for (int y = 0; y < this.size; y++)
                 areaGrid[x][y].setWCurrent(randomWCurrentPower, currentWDirection);
     }
@@ -148,14 +172,6 @@ public class Area {
 
 
     public void upgradeOilExpansion() {
-//        int minX = this.sourceX - this.iteration > 0 ? this.sourceX - this.iteration : 1;
-//        int maxX = this.sourceX + this.iteration < this.size ? this.sourceX + this.iteration : this.size - 1;
-//        int minY = this.sourceY - this.iteration > 0 ? sourceY - this.iteration : 1;
-//        int maxY = this.sourceY + this.iteration < this.size ? this.sourceY + this.iteration : this.size - 1;
-//
-//        for (int x = minX; x < maxX; x++)
-//            for (int y = minY; y < maxY; y++)
-//                areaGrid[x][y].updateOilLevel();
 
         for(int x=1; x < this.getSize()-1; x++){
             for(int y=1; y < this.getSize()-1; y++){
@@ -170,16 +186,6 @@ public class Area {
      * Przelicza poziom oleju w każdej komórce
      */
     public void checkOilForCircle() {
-//        this.iteration++;
-//
-//        int minX = this.sourceX - this.iteration > 0 ? this.sourceX - this.iteration : 1;
-//        int maxX = this.sourceX + this.iteration < this.size ? this.sourceX + this.iteration : this.size - 1;
-//        int minY = this.sourceY - this.iteration > 0 ? sourceY - this.iteration : 1;
-//        int maxY = this.sourceY + this.iteration < this.size ? this.sourceY + this.iteration : this.size - 1;
-
-//        for (int x = minX; x < maxX; x++)
-//            for (int y = minY; y < maxY; y++)
-//                areaGrid[x][y].generateNewOilLevel(this);
 
         for(int x=1; x < this.getSize() - 1; x++){
             for(int y=1; y < this.getSize() - 1; y++){

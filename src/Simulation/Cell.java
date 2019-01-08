@@ -150,13 +150,13 @@ public class Cell {
      */
     public int getNumberOfNeighbours4Directions(Area area, Type cellType){
         int neighbours = 0;
-        if (y > 0 && area.getCell(x,y-1).getType() == type) // NORTH
+        if (y > 0 && area.getCell(x,y-1).getType() == cellType) // NORTH
             neighbours++;
-        if (x < area.getSize()-1 && area.getCell(x+1,y).getType() == type) // EAST
+        if (x < area.getSize()-1 && area.getCell(x+1,y).getType() == cellType) // EAST
             neighbours++;
-        if (y < area.getSize()-1 && area.getCell(x,y+1).getType() == type) // SOUTH
+        if (y < area.getSize()-1 && area.getCell(x,y+1).getType() == cellType) // SOUTH
             neighbours++;
-        if (this.x > 0 && area.getCell(x-1,y).getType() == type) // WEST
+        if (this.x > 0 && area.getCell(x-1,y).getType() == cellType) // WEST
             neighbours++;
 
         return neighbours;
@@ -173,18 +173,17 @@ public class Cell {
 
         neighbours += this.getNumberOfNeighbours4Directions(area, cellType);
 
-        if (x > 0 && y > 0 && area.getCell(x-1,y-1).getType() == type) // NORTH WEST
+        if (x > 0 && y > 0 && area.getCell(x-1,y-1).getType() == cellType) // NORTH WEST
             neighbours++;
-        if (x > 0 && y < area.getSize()-1 && area.getCell(x-1,y+1).getType() == type) // SOUTH WEST
+        if (x > 0 && y < area.getSize()-1 && area.getCell(x-1,y+1).getType() == cellType) // SOUTH WEST
             neighbours++;
-        if (x < area.getSize()-1 && y > 0 && area.getCell(x+1,y-1).getType() == type) // NORTH EAST
+        if (x < area.getSize()-1 && y > 0 && area.getCell(x+1,y-1).getType() == cellType) // NORTH EAST
             neighbours++;
-        if (x < area.getSize()-1 &&  y < area.getSize()-1 && area.getCell(x+1,y+1).getType() == type) // SOUTH EAST
+        if (x < area.getSize()-1 &&  y < area.getSize()-1 && area.getCell(x+1,y+1).getType() == cellType) // SOUTH EAST
             neighbours++;
 
         return neighbours;
     }
-
 
 
     /**
