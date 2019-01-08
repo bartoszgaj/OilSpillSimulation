@@ -1,47 +1,119 @@
 package Simulation;
 
 import Presentation.Tile;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 public class Controller {
 
+    Area area;
+
     @FXML
     private GridPane map;
-    @FXML
-    private Button start;
-    @FXML
-    private Button iterate;
 
     @FXML
-    private TextField windx;
+    private Text windSpeedText;
     @FXML
-    private TextField windy;
+    private Text waterSpeedText;
     @FXML
-    private TextField timestamp;
-    // BUTTON
+    private Slider windSpeedSlider;
+    @FXML
+    private Slider waterSpeedSlider;
+    @FXML
+    private Text timestampText;
+    @FXML
+    private Slider timestampSlider;
+    @FXML
+    private ChoiceBox<String> waterDirection;
+    @FXML
+    private ChoiceBox<String> windDirection;
 
-    public Button getStartButton() {
-        return start;
+
+    public void initialize() {
+        area = new Area(100);
+        printGrid(area);
+
+        waterSpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                waterSpeedText.setText("Siła = " + String.format("%.1f", newValue));
+            }
+        });
+
+        windSpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                windSpeedText.setText("Siła = " + String.format("%.1f", newValue));
+            }
+        });
+
+        timestampSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                timestampText.setText("Liczba kroków czasowych = " + String.format("%.0f", newValue));
+            }
+        });
     }
 
-    public Button getIterate() {
-        return iterate;
+    @FXML
+    void startSimulation(ActionEvent event) {
+
+
+        area.setSimulationParameters(windDirection.getValue(),windSpeedSlider.getValue(),waterDirection.getValue(),waterSpeedSlider.getValue());
+
+        area.generateRandomSpillSource();
+        printGrid(area);
+        windSpeedSlider.setDisable(true);
+        waterSpeedSlider.setDisable(true);
+        windDirection.setDisable(true);
+        waterDirection.setDisable(true);
+
+//        area.printSimulationParameters();
+
+        System.out.println("SYMULACJA ZOSTAŁA WYSTARTOWANA");
     }
 
-    public Integer getWindX() {
-        return Integer.valueOf(windx.getText());
+    @FXML
+    void iterateSimulation(ActionEvent event) {
+        System.out.println(timestampSlider.getValue());
+        Integer numberOfInterations = (int) timestampSlider.getValue();
+        System.out.println(numberOfInterations);
+
+        for (int i = 0; i < numberOfInterations; i++) {
+            area.checkOilForCircle();
+            printGrid(area);
+
+            System.out.println("WYKONANO " + (i+1) + " ITERACJI");
+        }
+
+
+        System.out.println("ZASYMULOWANO " + numberOfInterations + " TIMESTAMPÓW ROZCHODZENIA");
     }
 
-    public Integer getWindY() {
-        return Integer.valueOf(windy.getText());
+    @FXML
+    void resetSimulation(ActionEvent event) {
+        area = new Area(100);
+        printGrid(area);
+
+        windSpeedSlider.setDisable(false);
+        waterSpeedSlider.setDisable(false);
+        windDirection.setDisable(false);
+        waterDirection.setDisable(false);
+
+        System.out.println("SYMULACJA ZOSTAŁA ZRESETOWANA");
     }
 
-    public Integer getTimestamp() {
-        return Integer.valueOf(timestamp.getText());
-    }
+
+
+
 
 
     public void printGrid(Area area) {
@@ -52,4 +124,6 @@ public class Controller {
             }
         }
     }
+
+
 }
