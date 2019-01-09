@@ -9,6 +9,9 @@ import javafx.scene.shape.Rectangle;
 public class Tile extends StackPane {
 
     private static final int TILE_SIZE = 3;
+    public int x;
+    public int y;
+    public Rectangle square;
 
     private Color coast = Color.web("rgb(86%, 54%, 4%)"); // orange
     private Color land = Color.web("rgb(0%, 100%, 0%)");
@@ -21,10 +24,15 @@ public class Tile extends StackPane {
     private Color water = Color.web("rgb(0%, 0%, 100%)");
 
 
-    public Tile(double oilLevel, Type type) {
+    public Tile(double oilLevel, Type type, int x, int y) {
+        this.x = x;
+        this.y= y;
+        this.square = new Rectangle(TILE_SIZE, TILE_SIZE);
+        this.setFill(oilLevel,type);
+        getChildren().add(square);
+    }
 
-        Rectangle square = new Rectangle(TILE_SIZE, TILE_SIZE);
-
+    public void setFill(double oilLevel, Type type){
         switch (type) {
             case COAST:
                 square.setFill(this.coast);
@@ -53,7 +61,5 @@ public class Tile extends StackPane {
                 square.setFill(this.water);
                 break;
         }
-
-        getChildren().add(square);
     }
 }

@@ -4,8 +4,10 @@ import Presentation.Tile;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
@@ -44,7 +46,7 @@ public class Controller {
 
     public void initialize() {
         this.area = new Area(100);
-        printGrid(this.area);
+        createGrid(this.area);
 
         this.iterateButton.setDisable(true);
 
@@ -140,12 +142,22 @@ public class Controller {
         System.out.println("SYMULACJA ZOSTAŁA ZRESETOWANA");
     }
 
-    public void printGrid(Area area) {
-
+    public void createGrid(Area area) {
         for (int i = 0; i < area.getSize(); i++) {
             for (int j = 0; j < area.getSize(); j++) {
-                map.add(new Tile(area.getCell(i, j).getOilLevel(), area.getCell(i, j).getType()), i, j);
+                map.add(new Tile(area.getCell(i, j).getOilLevel(), area.getCell(i, j).getType(), i, j), i, j);
             }
         }
+    }
+
+
+
+    public void printGrid(Area area) {
+        ObservableList<Node> childrens = map.getChildren();
+        for (Node node : childrens) {
+            Tile tile = (Tile) node;
+            tile.setFill(area.getCell(tile.x, tile.y).getOilLevel(), area.getCell(tile.x, tile.y).getType());
+        }
+
     }
 }
