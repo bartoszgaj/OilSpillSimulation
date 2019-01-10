@@ -17,71 +17,12 @@ public class Cell {
     private double wCurrentPower;
     private double[] wCurrentDirectionsPowers = new double[8];
 
-    public void setOilLevel(double oilLevel) {
-        this.oilLevel = oilLevel;
-    }
-
-    public double getOilLevel() {
-        return oilLevel;
-    }
-
-    public void setwCurrentDirection(Direction wCurrentDirection) {
-        this.wCurrentDirection = wCurrentDirection;
-    }
-
-    public double getwCurrentPower() {
-        return wCurrentPower;
-    }
-
-    public void setwCurrentPower(double wCurrentPower) {
-        this.wCurrentPower = wCurrentPower;
-    }
-
-    public double[] getwCurrentDirectionsPowers() {
-        return wCurrentDirectionsPowers;
-    }
-
-    public void setwCurrentDirectionsPowers(double[] wCurrentDirectionsPowers) {
-        this.wCurrentDirectionsPowers = wCurrentDirectionsPowers;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    public void setWCurrent(double wPower, Direction direction) {
-        this.wCurrentPower = wPower;
-        this.wCurrentDirection = direction;
-        this.generateWCurrentDirectionsPower();
-    }
-
-    public double getCurrentPowerAtDirection(Direction direction) {
-        return wCurrentDirectionsPowers[direction.ordinal()];
-    }
-
-    public Cell(int x, int y, Type type, double oilLevel, double nextOilLevel, Direction wCurrentDirection, double wCurrentPower, double[] wCurrentDirectionsPowers) {
-        this.x = x;
-        this.y = y;
-        this.type = type;
-        this.oilLevel = oilLevel;
-        this.nextOilLevel = nextOilLevel;
-        this.wCurrentDirection = wCurrentDirection;
-        this.wCurrentPower = wCurrentPower;
-        this.wCurrentDirectionsPowers = wCurrentDirectionsPowers;
-    }
-
-    public Cell() {
-    }
-
     public Cell(int x, int y, Type type) {
         this.x = x;
         this.y = y;
         this.type = type;
     }
+
 
     public void updateOilLevel() {
         //updating oil level
@@ -97,6 +38,24 @@ public class Cell {
         } else if (this.type == Type.OIL && this.oilLevel == 0) {
             this.type = Type.WATER;
         }
+    }
+
+    /**
+     * Calculate evaporation's impact for amount of oil
+     *
+     * @param oilLevel
+     * @param area
+     * @return
+     */
+    public double evaporate(double oilLevel, Area area) {
+        double nextOilLevel = oilLevel;
+
+        double evaporation_factor = 2E-15;
+
+        nextOilLevel -= evaporation_factor * 0.5 * (area.getTemperature() + 273);
+        if (nextOilLevel < 0) nextOilLevel = 0;
+
+        return nextOilLevel;
     }
 
     /**
@@ -121,90 +80,6 @@ public class Cell {
         //left direction
         this.wCurrentDirectionsPowers[(direction + 6) % 8] = 0;
     }
-
-    /**
-     * Checks whether a cell is a border
-     *
-     * @param area
-     */
-    public Boolean isBorder(Area area) {
-        return (this.x == 0 || this.x == area.getSize() ||
-                this.y == 0 || this.y == area.getSize());
-    }
-
-    /**
-     * Checks whether a cell is a part of a coast
-     *
-     * @param area
-     */
-    public void checkCoast(Area area) {
-        if (this.type == Type.LAND && this.getNumberOfNeighbours8Directions(area, Type.WATER) > 0)
-            this.type = Type.COAST;
-    }
-
-    /**
-     * Checks how many cells in N, E, S, W directions hass the same type as given
-     *
-     * @param area
-     * @param cellType - type of a cell we want to find neighbours for
-     * @return number of neighbours in N, E, S, W directions
-     */
-    public int getNumberOfNeighbours4Directions(Area area, Type cellType) {
-        int neighbours = 0;
-        if (y > 0 && area.getCell(x, y - 1).getType() == cellType) // NORTH
-            neighbours++;
-        if (x < area.getSize() - 1 && area.getCell(x + 1, y).getType() == cellType) // EAST
-            neighbours++;
-        if (y < area.getSize() - 1 && area.getCell(x, y + 1).getType() == cellType) // SOUTH
-            neighbours++;
-        if (x > 0 && area.getCell(x - 1, y).getType() == cellType) // WEST
-            neighbours++;
-
-        return neighbours;
-    }
-
-    /**
-     * Checks how many cells in N, NE, E, SE, S, SW, W, NW directions hass the same type as given
-     *
-     * @param area
-     * @param cellType - type of a cell we want to find neighbours for
-     * @return number of neighbours in N, NE, E, SE, S, SW, W, NW directions
-     */
-    public int getNumberOfNeighbours8Directions(Area area, Type cellType) {
-        int neighbours = 0;
-
-        neighbours += this.getNumberOfNeighbours4Directions(area, cellType);
-
-        if (x > 0 && y > 0 && area.getCell(x - 1, y - 1).getType() == cellType) // NORTH WEST
-            neighbours++;
-        if (x > 0 && y < area.getSize() - 1 && area.getCell(x - 1, y + 1).getType() == cellType) // SOUTH WEST
-            neighbours++;
-        if (x < area.getSize() - 1 && y > 0 && area.getCell(x + 1, y - 1).getType() == cellType) // NORTH EAST
-            neighbours++;
-        if (x < area.getSize() - 1 && y < area.getSize() - 1 && area.getCell(x + 1, y + 1).getType() == cellType) // SOUTH EAST
-            neighbours++;
-
-        return neighbours;
-    }
-
-    /**
-     * Calculate evaporation's impact for amount of oil
-     *
-     * @param oilLevel
-     * @param area
-     * @return
-     */
-    public double evaporate(double oilLevel, Area area) {
-        double nextOilLevel = oilLevel;
-
-        double evaporation_factor = 2E-15;
-
-        nextOilLevel -= evaporation_factor * 0.5 * (area.getTemperature() + 273);
-        if (nextOilLevel < 0) nextOilLevel = 0;
-
-        return nextOilLevel;
-    }
-
 
     /**
      * Generates new oil level based on surrounding cells
@@ -282,5 +157,99 @@ public class Cell {
         //setting the next oil level
         this.nextOilLevel = nextOilLevel;
 
+    }
+
+    // checkers
+    /**
+     * Checks whether a cell is a border
+     *
+     * @param area
+     */
+    public Boolean isBorder(Area area) {
+        return (this.x == 0 || this.x == area.getSize() ||
+                this.y == 0 || this.y == area.getSize());
+    }
+
+    /**
+     * Checks whether a cell is a part of a coast
+     *
+     * @param area
+     */
+    public void checkCoast(Area area) {
+        if (this.type == Type.LAND && this.getNumberOfNeighbours8Directions(area, Type.WATER) > 0)
+            this.type = Type.COAST;
+    }
+
+    /**
+     * Checks how many cells in N, E, S, W directions hass the same type as given
+     *
+     * @param area
+     * @param cellType - type of a cell we want to find neighbours for
+     * @return number of neighbours in N, E, S, W directions
+     */
+    public int getNumberOfNeighbours4Directions(Area area, Type cellType) {
+        int neighbours = 0;
+        if (y > 0 && area.getCell(x, y - 1).getType() == cellType) // NORTH
+            neighbours++;
+        if (x < area.getSize() - 1 && area.getCell(x + 1, y).getType() == cellType) // EAST
+            neighbours++;
+        if (y < area.getSize() - 1 && area.getCell(x, y + 1).getType() == cellType) // SOUTH
+            neighbours++;
+        if (x > 0 && area.getCell(x - 1, y).getType() == cellType) // WEST
+            neighbours++;
+
+        return neighbours;
+    }
+
+    /**
+     * Checks how many cells in N, NE, E, SE, S, SW, W, NW directions hass the same type as given
+     *
+     * @param area
+     * @param cellType - type of a cell we want to find neighbours for
+     * @return number of neighbours in N, NE, E, SE, S, SW, W, NW directions
+     */
+    public int getNumberOfNeighbours8Directions(Area area, Type cellType) {
+        int neighbours = 0;
+
+        neighbours += this.getNumberOfNeighbours4Directions(area, cellType);
+
+        if (x > 0 && y > 0 && area.getCell(x - 1, y - 1).getType() == cellType) // NORTH WEST
+            neighbours++;
+        if (x > 0 && y < area.getSize() - 1 && area.getCell(x - 1, y + 1).getType() == cellType) // SOUTH WEST
+            neighbours++;
+        if (x < area.getSize() - 1 && y > 0 && area.getCell(x + 1, y - 1).getType() == cellType) // NORTH EAST
+            neighbours++;
+        if (x < area.getSize() - 1 && y < area.getSize() - 1 && area.getCell(x + 1, y + 1).getType() == cellType) // SOUTH EAST
+            neighbours++;
+
+        return neighbours;
+    }
+
+    // need for cell setters
+    public void setOilLevel(double oilLevel) {
+        this.oilLevel = oilLevel;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public void setWCurrent(double wPower, Direction direction) {
+        this.wCurrentPower = wPower;
+        this.wCurrentDirection = direction;
+        this.generateWCurrentDirectionsPower();
+    }
+
+    // need for cell getters
+    public double getOilLevel() {
+        return oilLevel;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public double getCurrentPowerAtDirection(Direction direction) {
+        return wCurrentDirectionsPowers[direction.ordinal()];
     }
 }

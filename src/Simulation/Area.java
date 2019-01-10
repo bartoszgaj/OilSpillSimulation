@@ -24,18 +24,6 @@ public class Area {
         this.size = size;
         areaGrid = new Cell[this.size][this.size];
         generateRandomArea();
-//        this.generateWindDireciontsPower();
-    }
-
-    public void generateRandomSimulation() {
-        generateRandomSpillSource();
-        generateRandomWCurrent();
-    }
-
-    public void printSimulationParameters() {
-        System.out.println("PARAMETRY SYMULACJI");
-        System.out.println("Kierunek Wiatru = " + this.windDirection);
-        System.out.println("Predkosc Wiatru = " + this.windPower);
     }
 
     public void generateWindDireciontsPower() {
@@ -114,7 +102,7 @@ public class Area {
     }
 
     /**
-     * GenerateCurrent in given direction
+     * Generate current in given direction
      *
      * @param xWCurrent
      */
@@ -167,12 +155,6 @@ public class Area {
     }
 
     // need for Area setters..
-    public void setWind(double windPower, Direction windDirection) {
-        this.windDirection = windDirection;
-        this.windPower = windPower;
-        this.generateWindDireciontsPower();
-    }
-
     public void setSimulationParameters(String windDirection, Double windSpeed, String waterDirection, Double waterSpeed, double temperature) {
         this.windDirection = Direction.stringToDirection(windDirection);
         this.windPower = windSpeed;
@@ -198,14 +180,6 @@ public class Area {
         return this.temperature;
     }
 
-    public Cell[][] getAreaGrid() {
-        return this.areaGrid;
-    }
-
-    public double getWindPower() {
-        return this.windPower;
-    }
-
     public Cell getCell(int x, int y) {
         return areaGrid[x][y];
     }
@@ -214,25 +188,10 @@ public class Area {
         return this.windDirectionsPower[windDirection.ordinal()];
     }
 
-
-    /**
-     * Wyświetla różne informacje o obszarze w konsoli
-     */
-    public void displayAreaInfo() {
-        System.out.println("Wind power & direction: " + this.windPower + "" + this.windDirection.toString());
-        System.out.print("Wind power at directions: ");
-        for (int i = 0; i < 8; i++) System.out.print(windDirectionsPower[i] + " ");
-        System.out.println();
-        System.out.println("Source X Y level: " + sourceX + " " + sourceY + " " + getCell(sourceX, sourceY).getOilLevel());
-        System.out.println("Source Overall: " + overallSourceLevel);
-//        System.out.println("Source Current: " + getCell(sourceX,sourceY).getCurrentPower() + getCell(sourceX,sourceY).getCurrentDir().toString());
-        System.out.print("Source power at directions: ");
-        for (int i = 0; i < 8; i++)
-            System.out.print(getCell(sourceX, sourceY).getCurrentPowerAtDirection(Direction.values()[i]) + " ");
-        System.out.println();
-//        System.out.println("Cell 150 250 level: " + getCell(150,250).getOilLevel());
-//        System.out.println("Cell 351 250 level: " + getCell(351,250).getOilLevel());
-//        System.out.println("Cell 250 150 level: " + getCell(250,150).getOilLevel());
-//        System.out.println("Cell 250 351 level: " + getCell(250,351).getOilLevel());
+    // info display
+    public void printSimulationParameters() {
+        System.out.println("PARAMETRY SYMULACJI");
+        System.out.println("Kierunek Wiatru = " + this.windDirection);
+        System.out.println("Predkosc Wiatru = " + this.windPower);
     }
 }
