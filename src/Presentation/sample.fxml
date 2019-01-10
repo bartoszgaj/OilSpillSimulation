@@ -90,7 +90,7 @@
 
             <Separator orientation="HORIZONTAL"/>
             <Text fx:id="temperatureText">Temperatura = 20 stopni Celsjusza</Text>
-            <Slider fx:id="temperatureSlider"  value="20" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="-20" max="50" showTickLabels="true" showTickMarks="false" />
+            <Slider fx:id="temperatureSlider"  value="20" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="10" max="30" showTickLabels="true" showTickMarks="false" />
 
 
             <Separator orientation="HORIZONTAL"/>

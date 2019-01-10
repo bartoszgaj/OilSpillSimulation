@@ -50,10 +50,13 @@ public class Cell {
     public double evaporate(double oilLevel, Area area) {
         double nextOilLevel = oilLevel;
 
-        double evaporation_factor = 2E-15;
+        double evaporation_factor = 1E-15;
 
-        nextOilLevel -= evaporation_factor * 0.5 * (area.getTemperature() + 273);
-        if (nextOilLevel < 0) nextOilLevel = 0;
+        nextOilLevel -= evaporation_factor * (area.getTemperature() + 273);
+
+        if (nextOilLevel < 0) {
+            nextOilLevel = 0;
+        }
 
         return nextOilLevel;
     }
@@ -160,6 +163,7 @@ public class Cell {
     }
 
     // checkers
+
     /**
      * Checks whether a cell is a border
      *
