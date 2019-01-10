@@ -10,8 +10,8 @@ public class Area {
     private double[] windDirectionsPower = new double[8];
     private double temperature = 20;
     private Cell[][] areaGrid;
-    private int sourceX = -1;
-    private int sourceY = -1;
+    public int sourceX = -1;
+    public int sourceY = -1;
     private double overallSourceLevel = 255;
 
 
