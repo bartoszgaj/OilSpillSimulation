@@ -31,9 +31,10 @@ public class Area {
     }
 
 
-    public void setSimulationParameters(String windDirection, Double windSpeed, String waterDirection, Double waterSpeed) {
+    public void setSimulationParameters(String windDirection, Double windSpeed, String waterDirection, Double waterSpeed, double temperature) {
         this.windDirection = Direction.stringToDirection(windDirection);
         this.windPower = windSpeed;
+        this.temperature = temperature;
         for (int x = 0; x < this.getSize(); x++) {
             for (int y = 0; y < this.getSize(); y++) {
                 areaGrid[x][y].setWCurrent(waterSpeed, Direction.stringToDirection(waterDirection));

@@ -157,7 +157,7 @@ public class Cell {
             neighbours++;
         if (y < area.getSize() - 1 && area.getCell(x, y + 1).getType() == cellType) // SOUTH
             neighbours++;
-        if (this.x > 0 && area.getCell(x - 1, y).getType() == cellType) // WEST
+        if (x > 0 && area.getCell(x - 1, y).getType() == cellType) // WEST
             neighbours++;
 
         return neighbours;
@@ -258,8 +258,22 @@ public class Cell {
 
         nextOilLevel += oilChange * this.OIL_B_DIA;
 
+        // evaporation
+        nextOilLevel = evaporate(nextOilLevel, area);
+
         //setting the next oil level
         this.nextOilLevel = nextOilLevel;
 
+    }
+
+    public double evaporate(double oilLevel, Area area) {
+        double nextOilLevel = oilLevel;
+
+        double evaporation_factor = 2E-15;
+
+        nextOilLevel -= evaporation_factor * 0.5 * (area.getTemperature() + 273);
+        if (nextOilLevel < 0) nextOilLevel = 0;
+
+        return nextOilLevel;
     }
 }

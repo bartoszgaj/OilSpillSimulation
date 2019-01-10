@@ -15,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+import static java.lang.Thread.sleep;
+
 public class Controller {
 
     Area area;
@@ -34,6 +36,10 @@ public class Controller {
     private Text timestampText;
     @FXML
     private Slider timestampSlider;
+    @FXML
+    private Text temperatureText;
+    @FXML
+    private Slider temperatureSlider;
     @FXML
     private ChoiceBox<String> waterDirection;
     @FXML
@@ -70,24 +76,35 @@ public class Controller {
                 timestampText.setText("Liczba kroków czasowych = " + String.format("%.0f", newValue));
             }
         });
+
+        this.temperatureSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                temperatureText.setText("Temperatura = " + String.format("%.0f", newValue) + " stopni Celsjusza");
+            }
+        });
+    }
+
+    public void setParameters() {
+        double windSpeedSlider = this.windSpeedSlider.getValue() / 10;
+        double waterSpeedSlider = this.waterSpeedSlider.getValue() / 10;
+
+        this.area.setSimulationParameters(this.windDirection.getValue(), windSpeedSlider, this.waterDirection.getValue(), waterSpeedSlider, this.temperatureSlider.getValue());
+        this.area.generateWindDireciontsPower();
     }
 
     @FXML
     void startSimulation(ActionEvent event) {
 
 
-        double windSpeedSlider = this.windSpeedSlider.getValue() / 10;
-        double waterSpeedSlider = this.waterSpeedSlider.getValue() / 10;
-
-        this.area.setSimulationParameters(this.windDirection.getValue(), windSpeedSlider, this.waterDirection.getValue(), waterSpeedSlider);
-        this.area.generateWindDireciontsPower();
+        setParameters();
 
         this.area.generateRandomSpillSource();
         printGrid(this.area);
-        this.windSpeedSlider.setDisable(true);
-        this.waterSpeedSlider.setDisable(true);
-        this.windDirection.setDisable(true);
-        this.waterDirection.setDisable(true);
+//        this.windSpeedSlider.setDisable(true);
+//        this.waterSpeedSlider.setDisable(true);
+//        this.windDirection.setDisable(true);
+//        this.waterDirection.setDisable(true);
         this.startButton.setDisable(true);
         this.iterateButton.setDisable(false);
 
@@ -102,6 +119,7 @@ public class Controller {
         Integer numberOfInterations = (int) this.timestampSlider.getValue();
         System.out.println(numberOfInterations);
 
+        setParameters();
 
         int iteration = 0;
         new Thread(new Runnable() {
@@ -116,6 +134,11 @@ public class Controller {
 
     public void iterate(Integer numberOfInterations, int iteration) {
         int ite = iteration + 1;
+//        try {
+//            sleep(50);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -136,10 +159,10 @@ public class Controller {
         this.area = new Area(300);
         printGrid(area);
 
-        this.windSpeedSlider.setDisable(false);
-        this.waterSpeedSlider.setDisable(false);
-        this.windDirection.setDisable(false);
-        this.waterDirection.setDisable(false);
+//        this.windSpeedSlider.setDisable(false);
+//        this.waterSpeedSlider.setDisable(false);
+//        this.windDirection.setDisable(false);
+//        this.waterDirection.setDisable(false);
         this.startButton.setDisable(false);
         this.iterateButton.setDisable(true);
 
@@ -159,7 +182,7 @@ public class Controller {
         ObservableList<Node> childrens = map.getChildren();
         for (Node node : childrens) {
             Tile tile = (Tile) node;
-            tile.setFill(area.getCell(tile.x, tile.y).getOilLevel(), area.getCell(tile.x, tile.y).getType());
+            tile.setFill(area.getCell(tile.y, tile.x).getOilLevel(), area.getCell(tile.y, tile.x).getType());
         }
 
     }

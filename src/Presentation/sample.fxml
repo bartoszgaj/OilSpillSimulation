@@ -85,8 +85,13 @@
             </HBox>
 
             <Separator orientation="HORIZONTAL"/>
-            <Text fx:id="timestampText">Liczba kroków czasowych = 5</Text>
-            <Slider fx:id="timestampSlider" value="5" majorTickUnit="10" minorTickCount="9"  snapToTicks="true" blockIncrement="1" min="0" max="50" showTickLabels="true" showTickMarks="true"/>
+            <Text fx:id="temperatureText">Temperatura = 20 stopni Celsjusza</Text>
+            <Slider fx:id="temperatureSlider"  value="20" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="-20" max="50" showTickLabels="true" showTickMarks="false" />
+
+
+            <Separator orientation="HORIZONTAL"/>
+            <Text fx:id="timestampText">Liczba kroków czasowych = 100</Text>
+            <Slider fx:id="timestampSlider" value="100" majorTickUnit="10" minorTickCount="9"  snapToTicks="true" blockIncrement="1" min="0" max="100" showTickLabels="true" showTickMarks="true"/>
 
             <HBox alignment="CENTER">
             <Button fx:id="startButton" onAction="#startSimulation">START</Button>
