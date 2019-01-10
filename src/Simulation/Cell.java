@@ -17,6 +17,7 @@ public class Cell {
     private double wCurrentPower;
     private double[] wCurrentDirectionsPowers = new double[8];
 
+
     public Cell(int x, int y, Type type) {
         this.x = x;
         this.y = y;

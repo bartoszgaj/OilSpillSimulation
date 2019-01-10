@@ -62,8 +62,8 @@
                             </FXCollections>
                         </items>
                     </ChoiceBox>
-                    <Text fx:id="windSpeedText">Siła = 5.0</Text>
-                    <Slider fx:id="windSpeedSlider"  value="5" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="0" max="10" showTickLabels="true" showTickMarks="true"/>
+                    <Text fx:id="windSpeedText">Siła = 25.0 m/s</Text>
+                    <Slider fx:id="windSpeedSlider"  value="25" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="0" max="50" showTickLabels="true" showTickMarks="true"/>
                 </VBox>
                 <Separator orientation="VERTICAL"/>
                 <VBox alignment="CENTER">
@@ -83,14 +83,14 @@
                             </FXCollections>
                         </items>
                     </ChoiceBox>
-                    <Text fx:id="waterSpeedText">Siła = 5.0</Text>
-                    <Slider fx:id="waterSpeedSlider"  value="5" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="0" max="10" showTickLabels="true" showTickMarks="false" />
+                    <Text fx:id="waterSpeedText">Siła = 25.0 m/s</Text>
+                    <Slider fx:id="waterSpeedSlider"  value="25" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="0" max="50" showTickLabels="true" showTickMarks="false" />
                 </VBox>
             </HBox>
 
             <Separator orientation="HORIZONTAL"/>
-            <Text fx:id="temperatureText">Temperatura = 20 stopni Celsjusza</Text>
-            <Slider fx:id="temperatureSlider"  value="20" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="10" max="30" showTickLabels="true" showTickMarks="false" />
+            <Text fx:id="temperatureText">Temperatura = 10 stopni Celsjusza</Text>
+            <Slider fx:id="temperatureSlider"  value="10" majorTickUnit="2" minorTickCount="3" snapToTicks="true" blockIncrement="0.1" min="5" max="30" showTickLabels="true" showTickMarks="false" />
 
 
             <Separator orientation="HORIZONTAL"/>
