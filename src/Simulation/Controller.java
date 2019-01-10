@@ -129,7 +129,7 @@ public class Controller {
 
     @FXML
     void resetSimulation(ActionEvent event) {
-        this.area = new Area(100);
+        this.area = new Area(300);
         printGrid(area);
 
         this.windSpeedSlider.setDisable(false);

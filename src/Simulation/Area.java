@@ -92,7 +92,7 @@ public class Area {
 
         generateCoast();
 //        generateCurrent(250);
-        generateRandomWCurrent();
+//        generateRandomWCurrent();
     }
 
 
