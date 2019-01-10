@@ -201,7 +201,7 @@ public class Controller {
     public void createGrid(Area area) {
         for (int i = 0; i < area.getSize(); i++) {
             for (int j = 0; j < area.getSize(); j++) {
-                map.add(new Tile(area.getCell(i, j).getOilLevel(), area.getCell(i, j).getType(), i, j), i, j);
+                map.add(new Tile(area.getCell(i, j).getOilLevel(), area.getCell(i, j).getType(), j, i), j, i);
             }
         }
     }
