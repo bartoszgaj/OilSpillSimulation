@@ -96,9 +96,10 @@ public class Controller {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Wybrany punkt");
-                area.generateSpillSource(((int) event.getY())/3,((int) event.getX())/3);
-                printGrid(area);
-
+                if(area.getCell(((int) event.getY())/3,((int) event.getX())/3).getType() == Type.WATER) {
+                    area.generateSpillSource(((int) event.getY()) / 3, ((int) event.getX()) / 3);
+                    printGrid(area);
+                }
             }
         });
     }
