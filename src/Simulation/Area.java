@@ -5,8 +5,8 @@ import java.util.Random;
 public class Area {
 
     private int size;
-    private double windPower = 0;
-    private Direction windDirection = Direction.N;
+    private double windPower;
+    private Direction windDirection;
     private double[] windDirectionsPower = new double[8];
     private double temperature = 20;
     private Cell[][] areaGrid;
@@ -24,7 +24,7 @@ public class Area {
         areaGrid = new Cell[this.size][this.size];
 //        this.generateArea();
         generateRandomArea();
-        this.generateWindDireciontsPower();
+//        this.generateWindDireciontsPower();
     }
 
     public void generateRandomSimulation() {
@@ -36,6 +36,12 @@ public class Area {
     public void setSimulationParameters(String windDirection, Double windSpeed, String waterDirection, Double waterSpeed){
         this.windDirection = Direction.stringToDirection(windDirection);
         this.windPower=windSpeed;
+        for(int x = 0; x < this.getSize(); x++){
+            for(int y = 0; y < this.getSize(); y++){
+                areaGrid[x][y].setWCurrent(waterSpeed, Direction.stringToDirection(waterDirection));
+            }
+        }
+
     }
 
     public void printSimulationParameters(){

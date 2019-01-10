@@ -77,6 +77,7 @@ public class Controller {
 
 
         this.area.setSimulationParameters(this.windDirection.getValue(), this.windSpeedSlider.getValue(), this.waterDirection.getValue(), this.waterSpeedSlider.getValue());
+        this.area.generateWindDireciontsPower();
 
         this.area.generateRandomSpillSource();
         printGrid(this.area);
