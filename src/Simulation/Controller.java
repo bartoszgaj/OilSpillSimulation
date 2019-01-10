@@ -60,14 +60,14 @@ public class Controller {
         this.waterSpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                waterSpeedText.setText("Siła = " + String.format("%.1f", newValue));
+                waterSpeedText.setText("Siła = " + String.format("%.1f", newValue) + " m/s");
             }
         });
 
         this.windSpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                windSpeedText.setText("Siła = " + String.format("%.1f", newValue));
+                windSpeedText.setText("Siła = " + String.format("%.1f", newValue) + " m/s");
             }
         });
 
@@ -105,8 +105,8 @@ public class Controller {
     }
 
     public void setParameters() {
-        double windSpeedSlider = this.windSpeedSlider.getValue() / 20;
-        double waterSpeedSlider = this.waterSpeedSlider.getValue() / 20;
+        double windSpeedSlider = this.windSpeedSlider.getValue() / 100;
+        double waterSpeedSlider = this.waterSpeedSlider.getValue() / 100;
 
         this.area.setSimulationParameters(this.windDirection.getValue(), windSpeedSlider, this.waterDirection.getValue(), waterSpeedSlider, this.temperatureSlider.getValue());
         this.area.generateWindDireciontsPower();
