@@ -45,7 +45,7 @@ public class Controller {
 
 
     public void initialize() {
-        this.area = new Area(100);
+        this.area = new Area(300);
         createGrid(this.area);
 
         this.iterateButton.setDisable(true);

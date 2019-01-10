@@ -21,7 +21,7 @@ public class Main extends Application {
         Parent root = (Parent) loader.load();
         Controller controller = loader.getController();
         primaryStage.setTitle("Oil Spill Simulation");
-        primaryStage.setScene(new Scene(root, 800, 375));
+        primaryStage.setScene(new Scene(root, 1280, 950));
         primaryStage.show();
     }
 
