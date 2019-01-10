@@ -19,6 +19,10 @@
             xmlns:fx="http://javafx.com/fxml" fx:id="wrapper"
             >
 
+    <top>
+        <Label fx:id="position" />
+    </top>
+
     <left>
 
 

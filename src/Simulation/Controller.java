@@ -6,12 +6,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -48,6 +47,8 @@ public class Controller {
     private Button startButton;
     @FXML
     private Button iterateButton;
+    @FXML
+    private Label position;
 
 
     public void initialize() {
@@ -83,6 +84,23 @@ public class Controller {
                 temperatureText.setText("Temperatura = " + String.format("%.0f", newValue) + " stopni Celsjusza");
             }
         });
+
+        map.setOnMouseMoved(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                String msg = "x: " + event.getX() + "   y: " + event.getY();
+                position.setText(msg);
+            }
+        });
+        map.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Wybrany punkt");
+                area.generateSpillSource(((int) event.getY())/3,((int) event.getX())/3);
+                printGrid(area);
+
+            }
+        });
     }
 
     public void setParameters() {
@@ -98,7 +116,9 @@ public class Controller {
 
         setParameters();
 
-        this.area.generateRandomSpillSource();
+        if (this.area.sourceX == -1) {
+            this.area.generateRandomSpillSource();
+        }
         printGrid(this.area);
 
         this.startButton.setDisable(true);
@@ -192,5 +212,31 @@ public class Controller {
             Tile tile = (Tile) node;
             tile.setFill(area.getCell(tile.y, tile.x).getOilLevel(), area.getCell(tile.y, tile.x).getType());
         }
+    }
+
+
+    private Label createMonitoredLabel(final Label reporter) {
+        final Label monitored = new Label("Mouse Location Monitor");
+
+        monitored.setStyle("-fx-background-color: forestgreen; -fx-text-fill: white; -fx-font-size: 20px;");
+
+        monitored.setOnMouseMoved(new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent event) {
+                String msg =
+                        "(x: "       + event.getX()      + ", y: "       + event.getY()       + ") -- " +
+                                "(sceneX: "  + event.getSceneX() + ", sceneY: "  + event.getSceneY()  + ") -- " +
+                                "(screenX: " + event.getScreenX()+ ", screenY: " + event.getScreenY() + ")";
+
+                reporter.setText(msg);
+            }
+        });
+
+        monitored.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent event) {
+                reporter.setText("POZA");
+            }
+        });
+
+        return monitored;
     }
 }
