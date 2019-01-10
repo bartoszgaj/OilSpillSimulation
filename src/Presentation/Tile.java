@@ -28,14 +28,14 @@ public class Tile extends StackPane {
 
     public Tile(double oilLevel, Type type, int x, int y) {
         this.x = x;
-        this.y= y;
+        this.y = y;
         this.square = new Rectangle(TILE_SIZE, TILE_SIZE);
-        this.setFill(oilLevel,type);
+        this.setFill(oilLevel, type);
         getChildren().add(square);
     }
 
     public void setFill(double oilLevel, Type type) {
-        if (x == 0 || y == 0 || y == AREA_SIZE-1 || x == AREA_SIZE-1) {
+        if (x == 0 || y == 0 || y == AREA_SIZE - 1 || x == AREA_SIZE - 1) {
             square.setFill(Color.BLACK);
         } else {
 

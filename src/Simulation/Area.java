@@ -13,7 +13,6 @@ public class Area {
     private int sourceX = -1;
     private int sourceY = -1;
     private double overallSourceLevel = 255;
-    private int iteration = 0;
 
 
     /**
@@ -22,7 +21,6 @@ public class Area {
     public Area(int size) {
         this.size = size;
         areaGrid = new Cell[this.size][this.size];
-//        this.generateArea();
         generateRandomArea();
 //        this.generateWindDireciontsPower();
     }
@@ -33,18 +31,18 @@ public class Area {
     }
 
 
-    public void setSimulationParameters(String windDirection, Double windSpeed, String waterDirection, Double waterSpeed){
+    public void setSimulationParameters(String windDirection, Double windSpeed, String waterDirection, Double waterSpeed) {
         this.windDirection = Direction.stringToDirection(windDirection);
-        this.windPower=windSpeed;
-        for(int x = 0; x < this.getSize(); x++){
-            for(int y = 0; y < this.getSize(); y++){
+        this.windPower = windSpeed;
+        for (int x = 0; x < this.getSize(); x++) {
+            for (int y = 0; y < this.getSize(); y++) {
                 areaGrid[x][y].setWCurrent(waterSpeed, Direction.stringToDirection(waterDirection));
             }
         }
 
     }
 
-    public void printSimulationParameters(){
+    public void printSimulationParameters() {
         System.out.println("PARAMETRY SYMULACJI");
         System.out.println("Kierunek Wiatru = " + this.windDirection);
         System.out.println("Predkosc Wiatru = " + this.windPower);
@@ -63,21 +61,12 @@ public class Area {
         this.windDirectionsPower[(windDirection + 6) % 8] = 0;
     }
 
-
-    public void generateArea() {
-        for (int x = 0; x < this.size; x++) {
-            for (int y = 0; y < this.size; y++) {
-                areaGrid[x][y] = new Cell(x, y, Type.WATER);
-            }
-        }
-    }
-
-    public void generateRandomArea () {
+    public void generateRandomArea() {
         Random generator = new Random();
 
         for (int x = 0; x < this.size; x++)
             for (int y = 0; y < this.size; y++) {
-                areaGrid[x][y] = new Cell(x,y,Type.WATER);
+                areaGrid[x][y] = new Cell(x, y, Type.WATER);
                 if (generator.nextInt(1000) > 512)
                     areaGrid[x][y].setType(Type.LAND);
                 else
@@ -90,10 +79,9 @@ public class Area {
                     if (areaGrid[x][y].getType() == Type.LAND) {
                         if (areaGrid[x][y].getNumberOfNeighbours8Directions(this, Type.WATER) >= 4)
                             areaGrid[x][y].setType(Type.WATER);
-                    }
-                    else if (areaGrid[x][y].getType() == Type.WATER)
+                    } else if (areaGrid[x][y].getType() == Type.WATER)
                         if (areaGrid[x][y].getNumberOfNeighbours8Directions(this, Type.LAND) >= 4)
-                             areaGrid[x][y].setType(Type.LAND);
+                            areaGrid[x][y].setType(Type.LAND);
         }
 
         generateCoast();
@@ -179,8 +167,8 @@ public class Area {
 
     public void upgradeOilExpansion() {
 
-        for(int x=1; x < this.getSize()-1; x++){
-            for(int y=1; y < this.getSize()-1; y++){
+        for (int x = 1; x < this.getSize() - 1; x++) {
+            for (int y = 1; y < this.getSize() - 1; y++) {
                 areaGrid[x][y].updateOilLevel();
             }
         }
@@ -193,8 +181,8 @@ public class Area {
      */
     public void checkOilForCircle() {
 
-        for(int x=1; x < this.getSize() - 1; x++){
-            for(int y=1; y < this.getSize() - 1; y++){
+        for (int x = 1; x < this.getSize() - 1; x++) {
+            for (int y = 1; y < this.getSize() - 1; y++) {
                 areaGrid[x][y].generateNewOilLevel(this);
             }
         }
@@ -240,20 +228,20 @@ public class Area {
     }
 
 
-
     /**
      * Wyświetla różne informacje o obszarze w konsoli
      */
-    public void displayAreaInfo () {
+    public void displayAreaInfo() {
         System.out.println("Wind power & direction: " + this.windPower + "" + this.windDirection.toString());
         System.out.print("Wind power at directions: ");
         for (int i = 0; i < 8; i++) System.out.print(windDirectionsPower[i] + " ");
         System.out.println();
-        System.out.println("Source X Y level: " + sourceX + " " + sourceY + " " + getCell(sourceX,sourceY).getOilLevel());
+        System.out.println("Source X Y level: " + sourceX + " " + sourceY + " " + getCell(sourceX, sourceY).getOilLevel());
         System.out.println("Source Overall: " + overallSourceLevel);
 //        System.out.println("Source Current: " + getCell(sourceX,sourceY).getCurrentPower() + getCell(sourceX,sourceY).getCurrentDir().toString());
         System.out.print("Source power at directions: ");
-        for (int i = 0; i < 8; i++) System.out.print(getCell(sourceX,sourceY).getCurrentPowerAtDirection(Direction.values()[i]) + " ");
+        for (int i = 0; i < 8; i++)
+            System.out.print(getCell(sourceX, sourceY).getCurrentPowerAtDirection(Direction.values()[i]) + " ");
         System.out.println();
 //        System.out.println("Cell 150 250 level: " + getCell(150,250).getOilLevel());
 //        System.out.println("Cell 351 250 level: " + getCell(351,250).getOilLevel());

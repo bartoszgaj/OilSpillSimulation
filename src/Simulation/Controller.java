@@ -76,7 +76,10 @@ public class Controller {
     void startSimulation(ActionEvent event) {
 
 
-        this.area.setSimulationParameters(this.windDirection.getValue(), this.windSpeedSlider.getValue(), this.waterDirection.getValue(), this.waterSpeedSlider.getValue());
+        double windSpeedSlider = this.windSpeedSlider.getValue() / 10;
+        double waterSpeedSlider = this.waterSpeedSlider.getValue() / 10;
+
+        this.area.setSimulationParameters(this.windDirection.getValue(), windSpeedSlider, this.waterDirection.getValue(), waterSpeedSlider);
         this.area.generateWindDireciontsPower();
 
         this.area.generateRandomSpillSource();
@@ -150,7 +153,6 @@ public class Controller {
             }
         }
     }
-
 
 
     public void printGrid(Area area) {
