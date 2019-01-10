@@ -5,7 +5,7 @@ import java.util.Random;
 public class Area {
 
     private int size;
-    private double windPower = 0.4;
+    private double windPower = 0;
     private Direction windDirection = Direction.N;
     private double[] windDirectionsPower = new double[8];
     private double temperature = 20;

@@ -8,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 
 public class Tile extends StackPane {
 
-    private static final int AREA_SIZE = 100;
+    private static final int AREA_SIZE = 300;
 
     private static final int TILE_SIZE = 3;
     public int x;
