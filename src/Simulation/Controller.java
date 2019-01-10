@@ -86,8 +86,8 @@ public class Controller {
     }
 
     public void setParameters() {
-        double windSpeedSlider = this.windSpeedSlider.getValue() / 10;
-        double waterSpeedSlider = this.waterSpeedSlider.getValue() / 10;
+        double windSpeedSlider = this.windSpeedSlider.getValue() / 20;
+        double waterSpeedSlider = this.waterSpeedSlider.getValue() / 20;
 
         this.area.setSimulationParameters(this.windDirection.getValue(), windSpeedSlider, this.waterDirection.getValue(), waterSpeedSlider, this.temperatureSlider.getValue());
         this.area.generateWindDireciontsPower();
@@ -96,15 +96,11 @@ public class Controller {
     @FXML
     void startSimulation(ActionEvent event) {
 
-
         setParameters();
 
         this.area.generateRandomSpillSource();
         printGrid(this.area);
-//        this.windSpeedSlider.setDisable(true);
-//        this.waterSpeedSlider.setDisable(true);
-//        this.windDirection.setDisable(true);
-//        this.waterDirection.setDisable(true);
+
         this.startButton.setDisable(true);
         this.iterateButton.setDisable(false);
 
@@ -121,6 +117,14 @@ public class Controller {
 
         setParameters();
 
+        this.windSpeedSlider.setDisable(true);
+        this.waterSpeedSlider.setDisable(true);
+        this.windDirection.setDisable(true);
+        this.waterDirection.setDisable(true);
+        this.temperatureSlider.setDisable(true);
+        this.timestampSlider.setDisable(true);
+        this.iterateButton.setDisable(true);
+
         int iteration = 0;
         new Thread(new Runnable() {
             @Override
@@ -134,11 +138,11 @@ public class Controller {
 
     public void iterate(Integer numberOfInterations, int iteration) {
         int ite = iteration + 1;
-//        try {
-//            sleep(50);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -149,6 +153,14 @@ public class Controller {
 
                 if (numberOfInterations - 1 != 0) {
                     iterate(numberOfInterations - 1, ite);
+                } else {
+                    windSpeedSlider.setDisable(false);
+                    waterSpeedSlider.setDisable(false);
+                    windDirection.setDisable(false);
+                    waterDirection.setDisable(false);
+                    temperatureSlider.setDisable(false);
+                    timestampSlider.setDisable(false);
+                    iterateButton.setDisable(false);
                 }
             }
         });
@@ -159,10 +171,6 @@ public class Controller {
         this.area = new Area(300);
         printGrid(area);
 
-//        this.windSpeedSlider.setDisable(false);
-//        this.waterSpeedSlider.setDisable(false);
-//        this.windDirection.setDisable(false);
-//        this.waterDirection.setDisable(false);
         this.startButton.setDisable(false);
         this.iterateButton.setDisable(true);
 
@@ -184,6 +192,5 @@ public class Controller {
             Tile tile = (Tile) node;
             tile.setFill(area.getCell(tile.y, tile.x).getOilLevel(), area.getCell(tile.y, tile.x).getType());
         }
-
     }
 }

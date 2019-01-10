@@ -8,7 +8,7 @@ public class Area {
     private double windPower;
     private Direction windDirection;
     private double[] windDirectionsPower = new double[8];
-    private double temperature = 20;
+    private double temperature;
     private Cell[][] areaGrid;
     private int sourceX = -1;
     private int sourceY = -1;
@@ -16,7 +16,9 @@ public class Area {
 
 
     /**
-     * Tworzenie przestrzeni o zadanym rozmiarze
+     * Area grid creation
+     *
+     * @param size
      */
     public Area(int size) {
         this.size = size;
@@ -30,25 +32,11 @@ public class Area {
         generateRandomWCurrent();
     }
 
-
-    public void setSimulationParameters(String windDirection, Double windSpeed, String waterDirection, Double waterSpeed, double temperature) {
-        this.windDirection = Direction.stringToDirection(windDirection);
-        this.windPower = windSpeed;
-        this.temperature = temperature;
-        for (int x = 0; x < this.getSize(); x++) {
-            for (int y = 0; y < this.getSize(); y++) {
-                areaGrid[x][y].setWCurrent(waterSpeed, Direction.stringToDirection(waterDirection));
-            }
-        }
-
-    }
-
     public void printSimulationParameters() {
         System.out.println("PARAMETRY SYMULACJI");
         System.out.println("Kierunek Wiatru = " + this.windDirection);
         System.out.println("Predkosc Wiatru = " + this.windPower);
     }
-
 
     public void generateWindDireciontsPower() {
         int windDirection = this.windDirection.ordinal();
@@ -86,20 +74,17 @@ public class Area {
         }
 
         generateCoast();
-//        generateCurrent(250);
-//        generateRandomWCurrent();
     }
 
 
-    /**
-     * Generuje źródło wycieku w losowym miejscu na wodzie
-     */
     public void generateRandomSpillSource() {
         Random generator = new Random();
 
         while (true) {
-            int x = generator.nextInt(this.size);
-            int y = generator.nextInt(this.size);
+            int x = generator.nextInt(this.size - 150);
+            int y = generator.nextInt(this.size - 150);
+            x += 75;
+            y += 75;
 
             if (areaGrid[x][y].getType() == Type.WATER) {
                 this.generateSpillSource(x, y);
@@ -109,8 +94,7 @@ public class Area {
     }
 
     /**
-     * Tworzy źródło wycieku w danym miejscu,
-     * początek wycieku jako 100%
+     * Generate spill source in given coordinates
      *
      * @param x
      * @param y
@@ -122,19 +106,15 @@ public class Area {
         areaGrid[x][y].setOilLevel(100.0);
     }
 
-
-    /**
-     * Generuje losowy prąd w losowym miejscu
-     */
     public void generateRandomWCurrent() {
         Random generator = new Random();
-        int x = generator.nextInt(this.size - 50);
+        int x = generator.nextInt(this.size - 100);
 
         this.generateWCurrent(x);
     }
 
     /**
-     * Generuje prąd o losowej sile wokół podanego punktu
+     * GenerateCurrent in given direction
      *
      * @param xWCurrent
      */
@@ -149,10 +129,6 @@ public class Area {
                 areaGrid[x][y].setWCurrent(randomWCurrentPower, currentWDirection);
     }
 
-
-    /**
-     * Ustawia typ odpowiednich komorek na wybrzeze
-     */
     public void generateCoast() {
         for (int x = 0; x < this.size; x++)
             for (int y = 0; y < this.size; y++)
@@ -164,7 +140,6 @@ public class Area {
         overallSourceLevel -= 100.0 - getSource().getOilLevel();
         getSource().setOilLevel(100.0 - (overallSourceLevel >= 0 ? 0 : overallSourceLevel));
     }
-
 
     public void upgradeOilExpansion() {
 
@@ -178,7 +153,7 @@ public class Area {
     }
 
     /**
-     * Przelicza poziom oleju w każdej komórce
+     * Counts oilLevel in each cell
      */
     public void checkOilForCircle() {
 
@@ -191,12 +166,23 @@ public class Area {
         this.upgradeOilExpansion();
     }
 
-
     // need for Area setters..
     public void setWind(double windPower, Direction windDirection) {
         this.windDirection = windDirection;
         this.windPower = windPower;
         this.generateWindDireciontsPower();
+    }
+
+    public void setSimulationParameters(String windDirection, Double windSpeed, String waterDirection, Double waterSpeed, double temperature) {
+        this.windDirection = Direction.stringToDirection(windDirection);
+        this.windPower = windSpeed;
+        this.temperature = temperature;
+        for (int x = 0; x < this.getSize(); x++) {
+            for (int y = 0; y < this.getSize(); y++) {
+                areaGrid[x][y].setWCurrent(waterSpeed, Direction.stringToDirection(waterDirection));
+            }
+        }
+
     }
 
     // need for Area getters..

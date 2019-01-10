@@ -187,6 +187,24 @@ public class Cell {
         return neighbours;
     }
 
+    /**
+     * Calculate evaporation's impact for amount of oil
+     *
+     * @param oilLevel
+     * @param area
+     * @return
+     */
+    public double evaporate(double oilLevel, Area area) {
+        double nextOilLevel = oilLevel;
+
+        double evaporation_factor = 2E-15;
+
+        nextOilLevel -= evaporation_factor * 0.5 * (area.getTemperature() + 273);
+        if (nextOilLevel < 0) nextOilLevel = 0;
+
+        return nextOilLevel;
+    }
+
 
     /**
      * Generates new oil level based on surrounding cells
@@ -264,16 +282,5 @@ public class Cell {
         //setting the next oil level
         this.nextOilLevel = nextOilLevel;
 
-    }
-
-    public double evaporate(double oilLevel, Area area) {
-        double nextOilLevel = oilLevel;
-
-        double evaporation_factor = 2E-15;
-
-        nextOilLevel -= evaporation_factor * 0.5 * (area.getTemperature() + 273);
-        if (nextOilLevel < 0) nextOilLevel = 0;
-
-        return nextOilLevel;
     }
 }
