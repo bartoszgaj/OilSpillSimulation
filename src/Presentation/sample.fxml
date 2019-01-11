@@ -20,7 +20,7 @@
             >
 
     <top>
-        <Label fx:id="position" />
+        <Label fx:id="positionText" />
     </top>
 
     <left>
@@ -103,7 +103,72 @@
             <Button fx:id="resetButton" onAction="#resetSimulation">RESET</Button>
 
             </HBox>
+
+            <Label/>
+            <Separator orientation="HORIZONTAL"/>
+            <Label/>
+            <Label style="-fx-font-size: 20; -fx-font-weight: bold">STATYSTYKI</Label>
+            <HBox alignment="TOP_CENTER" spacing="20">
+                <VBox alignment="TOP_CENTER">
+                    <Label style="-fx-font-size: 14; -fx-font-weight: bold">Początek</Label>
+                    <HBox>
+                        <VBox alignment="TOP_LEFT">
+                            <Label>Typ pól:</Label>
+                            <Label>Olej:</Label>
+                            <Label>Źródła:</Label>
+                            <Label>Woda:</Label>
+                            <Label>Wybrzeże:</Label>
+                            <Label>Ląd:</Label>
+                        </VBox>
+                        <VBox alignment="TOP_RIGHT">
+                            <Label >Liczba:</Label>
+                            <Label fx:id="oilStart">0</Label>
+                            <Label fx:id="sourceStart">0</Label>
+                            <Label fx:id="waterStart">0</Label>
+                            <Label fx:id="coastStart">0</Label>
+                            <Label fx:id="landStart">0</Label>
+                        </VBox>
+                    </HBox>
+
+                </VBox>
+
+
+                <Separator orientation="VERTICAL"/>
+
+                <VBox alignment="TOP_CENTER">
+                    <Label style="-fx-font-size: 14; -fx-font-weight: bold">Początek</Label>
+                    <HBox >
+                        <VBox alignment="TOP_LEFT">
+                            <Label>Typ pól:</Label>
+                            <Label>Olej:</Label>
+                            <Label>Źródła:</Label>
+                            <Label>Woda:</Label>
+                            <Label>Wybrzeże:</Label>
+                            <Label>Ląd:</Label>
+                        </VBox>
+
+                        <VBox alignment="TOP_RIGHT">
+                            <Label >Liczba:</Label>
+                            <Label fx:id="oilEnd">0</Label>
+                            <Label fx:id="sourceEnd">0</Label>
+                            <Label fx:id="waterEnd">0</Label>
+                            <Label fx:id="coastEnd">0</Label>
+                            <Label fx:id="landEnd">0</Label>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+
+            </HBox>
+            <VBox alignment="CENTER_LEFT">
+            <Label/>
+            <Label fx:id="areaText">Powierzchnia rozlewu:</Label>
+            <Label fx:id="volumeText">Objętośc oleju:</Label>
+            <Label fx:id="evaporationText">Wyparowana objętość:</Label>
+            </VBox>
         </VBox>
+
+
 
     </right>
 

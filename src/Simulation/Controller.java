@@ -48,12 +48,45 @@ public class Controller {
     @FXML
     private Button iterateButton;
     @FXML
-    private Label position;
+    private Label positionText;
+
+    //STATISTICS
+    @FXML
+    private Label oilStart;
+    @FXML
+    private Label waterStart;
+    @FXML
+    private Label coastStart;
+    @FXML
+    private Label landStart;
+    @FXML
+    private Label sourceStart;
+
+    @FXML
+    private Label oilEnd;
+    @FXML
+    private Label waterEnd;
+    @FXML
+    private Label coastEnd;
+    @FXML
+    private Label landEnd;
+    @FXML
+    private Label sourceEnd;
+
+    @FXML
+    private Label areaText;
+    @FXML
+    private Label volumeText;
+    @FXML
+    private Label evaporationText;
+
 
 
     public void initialize() {
         this.area = new Area(300);
         createGrid(this.area);
+        positionText.setVisible(false);
+
 
         this.iterateButton.setDisable(true);
 
@@ -88,18 +121,25 @@ public class Controller {
         map.setOnMouseMoved(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                positionText.setVisible(true);
                 String msg = "x: " + event.getX() + "   y: " + event.getY();
-                position.setText(msg);
+                positionText.setText(msg);
             }
         });
         map.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Wybrany punkt");
-                if(area.getCell(((int) event.getY())/3,((int) event.getX())/3).getType() == Type.WATER) {
-                    area.generateSpillSource(((int) event.getY()) / 3, ((int) event.getX()) / 3);
+                if(area.getCell(((int) event.getY())/2,((int) event.getX())/2).getType() == Type.WATER) {
+                    area.generateSpillSource(((int) event.getY()) / 2, ((int) event.getX()) / 2);
                     printGrid(area);
                 }
+            }
+        });
+        map.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                positionText.setVisible(false);
             }
         });
     }
@@ -121,6 +161,7 @@ public class Controller {
             this.area.generateRandomSpillSource();
         }
         printGrid(this.area);
+        setStartStatistict();
 
         this.startButton.setDisable(true);
         this.iterateButton.setDisable(false);
@@ -168,6 +209,8 @@ public class Controller {
             @Override
             public void run() {
                 area.checkOilForCircle();
+                setEndStatistict();
+                setOverallStatistics();
                 printGrid(area);
 
                 System.out.println("WYKONANO " + (ite) + " ITERACJI");
@@ -239,5 +282,28 @@ public class Controller {
         });
 
         return monitored;
+    }
+
+    public void setStartStatistict(){
+        int[] statistics = Statistics.getCellsTypeInfo(area);
+        oilStart.setText(String.valueOf(statistics[0]));
+        sourceStart.setText(String.valueOf(statistics[1]));
+        waterStart.setText(String.valueOf(statistics[2]));
+        coastStart.setText(String.valueOf(statistics[3]));
+        landStart.setText(String.valueOf(statistics[4]));
+    }
+    public void setEndStatistict(){
+        int[] statistics = Statistics.getCellsTypeInfo(area);
+        oilEnd.setText(String.valueOf(statistics[0]));
+        sourceEnd.setText(String.valueOf(statistics[1]));
+        waterEnd.setText(String.valueOf(statistics[2]));
+        coastEnd.setText(String.valueOf(statistics[3]));
+        landEnd.setText(String.valueOf(statistics[4]));
+    }
+
+    public void setOverallStatistics(){
+        areaText.setText("Powierzchnia rozlewu: " + oilEnd.getText());
+        volumeText.setText("Objętośc oleju: " + String.format("%.2f", Statistics.getOverallOilLevel(area)));
+        evaporationText.setText("Wyparowana objętość: " + String.format("%.2f", 400 - Statistics.getOverallOilLevel(area)));
     }
 }
