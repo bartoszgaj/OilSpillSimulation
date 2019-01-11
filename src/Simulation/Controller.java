@@ -161,7 +161,7 @@ public class Controller {
             this.area.generateRandomSpillSource();
         }
         printGrid(this.area);
-        setStartStatistict();
+        setStartStatistics();
 
         this.startButton.setDisable(true);
         this.iterateButton.setDisable(false);
@@ -209,7 +209,7 @@ public class Controller {
             @Override
             public void run() {
                 area.checkOilForCircle();
-                setEndStatistict();
+                setEndStatistics();
                 setOverallStatistics();
                 printGrid(area);
 
@@ -234,6 +234,8 @@ public class Controller {
     void resetSimulation(ActionEvent event) {
         this.area = new Area(300);
         printGrid(area);
+        resetStatisctics();
+
 
         this.startButton.setDisable(false);
         this.iterateButton.setDisable(true);
@@ -284,7 +286,7 @@ public class Controller {
         return monitored;
     }
 
-    public void setStartStatistict(){
+    public void setStartStatistics(){
         int[] statistics = Statistics.getCellsTypeInfo(area);
         oilStart.setText(String.valueOf(statistics[0]));
         sourceStart.setText(String.valueOf(statistics[1]));
@@ -292,13 +294,29 @@ public class Controller {
         coastStart.setText(String.valueOf(statistics[3]));
         landStart.setText(String.valueOf(statistics[4]));
     }
-    public void setEndStatistict(){
+    public void setEndStatistics(){
         int[] statistics = Statistics.getCellsTypeInfo(area);
         oilEnd.setText(String.valueOf(statistics[0]));
         sourceEnd.setText(String.valueOf(statistics[1]));
         waterEnd.setText(String.valueOf(statistics[2]));
         coastEnd.setText(String.valueOf(statistics[3]));
         landEnd.setText(String.valueOf(statistics[4]));
+    }
+
+    public void resetStatisctics(){
+        oilStart.setText("");
+        sourceStart.setText("");
+        waterStart.setText("");
+        coastStart.setText("");
+        landStart.setText("");
+        oilEnd.setText("");
+        sourceEnd.setText("");
+        waterEnd.setText("");
+        coastEnd.setText("");
+        landEnd.setText("");
+        areaText.setText("Powierzchnia rozlewu: ");
+        volumeText.setText("Objętośc oleju: ");
+        evaporationText.setText("Wyparowana objętość: ");
     }
 
     public void setOverallStatistics(){
