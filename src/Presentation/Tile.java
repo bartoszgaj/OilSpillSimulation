@@ -78,24 +78,6 @@ public class Tile extends StackPane {
                         square.setFill(this.oilColor);
                     }
                     break;
-//                case OIL:
-//                    oilColor = Color.web("rgb(0%, 0%, " + String.valueOf((100 * (oilLevel - 1.0E-3)) / (10 - 1.0E-3)) + "%)");
-//                    square.setFill(oilColor);
-//                    break;
-//                case OIL:
-//                    square.setFill(this.oilColor);
-//                    if (oilLevel < 1.0E-14) {
-//                        square.setFill(this.water);
-//                    } else if (oilLevel < 1.0E-11) {
-//                        square.setFill(this.oilColor4);
-//                    } else if (oilLevel < 1.0E-8) {
-//                        square.setFill(this.oilColor3);
-//                    } else if (oilLevel < 1.0E-5) {
-//                        square.setFill(this.oilColor2);
-//                    } else if (oilLevel < 1.0E-2) {
-//                        square.setFill(this.oilColor1);
-//                    }
-//                    break;
                 case SOURCE:
                     square.setFill(source);
                     break;
