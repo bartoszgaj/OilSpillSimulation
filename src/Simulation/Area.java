@@ -12,7 +12,7 @@ public class Area {
     private Cell[][] areaGrid;
     public int sourceX = -1;
     public int sourceY = -1;
-    private double overallSourceLevel = 255;
+    private double overallSourceLevel = 10;
 
 
     /**
@@ -91,7 +91,7 @@ public class Area {
         areaGrid[x][y].setType(Type.SOURCE);
         this.sourceX = x;
         this.sourceY = y;
-        areaGrid[x][y].setOilLevel(100.0);
+        areaGrid[x][y].setOilLevel(10.0);
     }
 
     public void generateRandomWCurrent() {

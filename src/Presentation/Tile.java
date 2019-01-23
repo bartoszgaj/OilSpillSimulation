@@ -17,13 +17,20 @@ public class Tile extends StackPane {
 
     private Color coast = Color.web("rgb(86%, 54%, 4%)"); // orange
     private Color land = Color.web("rgb(0%, 100%, 0%)");
+
     private Color oilColor = Color.web("rgb(0%, 0%, 0%)");
     private Color oilColor1 = Color.web("rgb(0%, 0%, 10%)"); // black -> blue
-    private Color oilColor2 = Color.web("rgb(0%, 0%, 30%)");
-    private Color oilColor3 = Color.web("rgb(0%, 0%, 50%)");
-    private Color oilColor4 = Color.web("rgb(0%, 0%, 70%)");
-    private Color source = Color.web("rgb(100%, 0%, 70%)");
+    private Color oilColor2 = Color.web("rgb(0%, 0%, 20%)");
+    private Color oilColor3 = Color.web("rgb(0%, 0%, 30%)");
+    private Color oilColor4 = Color.web("rgb(0%, 0%, 40%)");
+    private Color oilColor5 = Color.web("rgb(0%, 0%, 50%)");
+    private Color oilColor6 = Color.web("rgb(0%, 0%, 60%)");
+    private Color oilColor7 = Color.web("rgb(0%, 0%, 70%)");
+    private Color oilColor8 = Color.web("rgb(0%, 0%, 80%)");
+    private Color oilColor9 = Color.web("rgb(0%, 0%, 90%)");
     private Color water = Color.web("rgb(0%, 0%, 100%)");
+
+    private Color source = Color.web("rgb(100%, 0%, 70%)");
 
 
     public Tile(double oilLevel, Type type, int x, int y) {
@@ -47,19 +54,48 @@ public class Tile extends StackPane {
                     square.setFill(this.land);
                     break;
                 case OIL:
-                    square.setFill(this.oilColor);
-                    if (oilLevel < 1.0E-14) {
+                    if (oilLevel < 1.0E-10) {
                         square.setFill(this.water);
-                    } else if (oilLevel < 1.0E-11) {
-                        square.setFill(this.oilColor4);
+                    } else if (oilLevel < 1.0E-9) {
+                        square.setFill(this.oilColor9);
                     } else if (oilLevel < 1.0E-8) {
-                        square.setFill(this.oilColor3);
+                        square.setFill(this.oilColor8);
+                    } else if (oilLevel < 1.0E-7) {
+                        square.setFill(this.oilColor7);
+                    } else if (oilLevel < 1.0E-6) {
+                        square.setFill(this.oilColor6);
                     } else if (oilLevel < 1.0E-5) {
-                        square.setFill(this.oilColor2);
+                        square.setFill(this.oilColor5);
+                    } else if (oilLevel < 1.0E-4) {
+                        square.setFill(this.oilColor4);
+                    } else if (oilLevel < 1.0E-3) {
+                        square.setFill(this.oilColor3);
                     } else if (oilLevel < 1.0E-2) {
+                        square.setFill(this.oilColor2);
+                    } else if (oilLevel < 1.0E-1) {
                         square.setFill(this.oilColor1);
+                    } else {
+                        square.setFill(this.oilColor);
                     }
                     break;
+//                case OIL:
+//                    oilColor = Color.web("rgb(0%, 0%, " + String.valueOf((100 * (oilLevel - 1.0E-3)) / (10 - 1.0E-3)) + "%)");
+//                    square.setFill(oilColor);
+//                    break;
+//                case OIL:
+//                    square.setFill(this.oilColor);
+//                    if (oilLevel < 1.0E-14) {
+//                        square.setFill(this.water);
+//                    } else if (oilLevel < 1.0E-11) {
+//                        square.setFill(this.oilColor4);
+//                    } else if (oilLevel < 1.0E-8) {
+//                        square.setFill(this.oilColor3);
+//                    } else if (oilLevel < 1.0E-5) {
+//                        square.setFill(this.oilColor2);
+//                    } else if (oilLevel < 1.0E-2) {
+//                        square.setFill(this.oilColor1);
+//                    }
+//                    break;
                 case SOURCE:
                     square.setFill(source);
                     break;
