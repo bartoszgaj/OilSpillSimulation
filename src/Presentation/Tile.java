@@ -10,7 +10,7 @@ public class Tile extends StackPane {
 
     private static final int AREA_SIZE = 300;
 
-    private static final int TILE_SIZE = 3;
+    private static final int TILE_SIZE = 2;
     public int x;
     public int y;
     public Rectangle square;
